@@ -13,7 +13,7 @@ const servicesData = [
         id: 2,
         icon: FaCode,
         title: "frontend development",
-        description: "I specialize in creating responsive, interactive user interfaces with React, Tailwind CSS and JavaScript."
+        description: "I specialize in creating responsive, interactive user interfaces with React,  TypeScript, Tailwind CSS and JavaScript."
     },
     {
         id: 3,
@@ -25,7 +25,7 @@ const servicesData = [
         id: 4,
         icon: FaChalkboardTeacher,
         title: "Mentoring",
-        description: "1-on-1 coaching and guidance for developers looking to advance their knowledge on HTML, CSS and JavaScript."
+        description: "1-on-1 coaching and guidance for junior software developers looking to advance their knowledge on frontend and backend development."
     },
 ];
 

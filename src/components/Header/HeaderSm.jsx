@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { IoMdMail, IoMdClose } from "react-icons/io";
+import { FaX } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
 import { NavLink, useNavigate } from "react-router";
 
@@ -12,9 +13,9 @@ const HeaderSm = ({isHomePage}) => {
         <header className="w-full border-b border-lite-gray/20 h-16 flex lg:hidden items-center sticky top-0 z-50 bg-main-dark-bg">
             <div className="h-full w-full flex justify-between items-center px-4 relative">
                 <h1 
-                    className="text-pri-blue font-bold text-lg"
+                    className="text-white-shade font-bold amatic-sc-bold text-lg"
                     onClick={() => navigate("/")}
-                >Chiemezie</h1>
+                >STANLEY OWARIETA<span className="text-goldmeat text-3xl">...</span></h1>
 
                 <div>
                     <button 
@@ -30,14 +31,14 @@ const HeaderSm = ({isHomePage}) => {
                     {
                         isMobileMenuVisible &&
                         <nav 
-                            className="absolute left-0 top-full px-4 flex flex-col gap-8 justify-center items-center bg-dark-bg w-full max-w-[15rem] h-[calc(100vh-4rem)] py-12 border-r border-white-shade/5 shadow-lg"
+                            className="absolute left-0 top-full px-4 flex flex-col gap-8 justify-top items-center mt-3 bg-dark-bg w-full max-w-[10rem] h-[calc(100vh-2rem)] border-r border-white-shade/5 shadow-lg"
                         >
                             <ul className="flex flex-col gap-4 items-center">
                                 <li>
                                     <NavLink 
                                         to="/" 
                                         className={({ isActive }) =>
-                                            isActive ? "text-pri-blue capitalize" : "text-white capitalize hover:text-pri-blue duration-100"
+                                            isActive ? "text-goldmaize capitalize" : "text-white capitalize hover:text-goldmeat duration-100"
                                         }
                                     >
                                         home
@@ -48,7 +49,7 @@ const HeaderSm = ({isHomePage}) => {
                                     <NavLink 
                                         to="/about" 
                                         className={({ isActive }) =>
-                                            isActive ? "text-pri-blue capitalize" : "text-white capitalize hover:text-pri-blue duration-100"
+                                            isActive ? "text-goldmaize capitalize" : "text-white capitalize hover:text-goldmeat duration-100"
                                         }
                                     >
                                         about
@@ -58,24 +59,24 @@ const HeaderSm = ({isHomePage}) => {
                                 {
                                     isHomePage && 
                                     <>
-                                        <li><a href="#projects" className="text-white capitalize hover:text-pri-blue duration-100">projects</a></li>
+                                        <li><a href="#projects" className="text-white capitalize hover:text-goldmeat duration-100">projects</a></li>
 
-                                        <li><a href="#contact" className="text-white capitalize hover:text-pri-blue duration-100">contact</a></li>
+                                        <li><a href="#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</a></li>
                                     </>
                                 }
                             </ul>
 
-                            <div className="flex gap-8">
-                                <a href="https://github.com/Chiemezie-Uchenwoke" target="_blank"> 
-                                    <FaGithub className="text-lite-gray/80 text-xl hover:text-pri-blue duration-100" /> 
+                            <div className="flex gap-4">
+                                <a href="https://github.com/Stanley-24" target="_blank"> 
+                                    <FaGithub className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
+                                </a>
+            
+                                <a href="https://www.linkedin.com/in/stanley-owarieta/" target="_blank"> 
+                                    <FaLinkedin className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                                 </a>
 
-                                <a href="https://www.linkedin.com/in/chiemezieuche/" target="_blank"> 
-                                    <FaLinkedin className="text-lite-gray/80 text-xl hover:text-pri-blue duration-100" /> 
-                                </a>
-
-                                <a href="mailto:uchenwoke.chiemezie@gmail.com" target="_blank"> 
-                                    <IoMdMail className="text-lite-gray/80 text-xl hover:text-pri-blue duration-100" /> 
+                                <a href="https://x.com/Stanley_24_" target="_blank"> 
+                                    <FaX className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                                 </a>
                             </div>
                         </nav>

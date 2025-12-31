@@ -1,47 +1,46 @@
-import chiemeziePicture from "../../assets/chiemezie-uche.png";
+import StanleyOwarietaPic from "../../assets/stan-pic.jpg";
 import { motion } from "motion/react" // eslint-disable-line no-unused-vars
-
 const Hero = () => {
     return (
         <section className="w-full flex flex-col gap-6 lg:gap-8 items-center pt-12 pb-4 ">
-            <div className="border-3 md:border-4 border-pri-blue w-48 h-48 rounded-full overflow-hidden bg-white-shade/10">
+            <div className="border-3 md:border-4 border-goldenrod w-48 h-48 rounded-full overflow-hidden bg-white-shade/10">
                 <img 
-                    src={chiemeziePicture} 
-                    alt="Chiemezie's picture" 
+                    src={StanleyOwarietaPic} 
+                    alt="Stanley Owarieta's picture" 
                     className="w-full h-full object-cover relative top-4"
                 />
             </div>
 
             <motion.h2 
-                className="text-white-shade capitalize font-extrabold text-2xl sm:text-3xl lg:text-5xl tracking-wide"
+                className="text-white-shade capitalize amatic-sc-bold text-6xl sm:text-3xl lg:text-6xl tracking-wide"
                 initial={{opacity: 0, y: 20}}
                 animate={{opacity: 1, y: 0}}
                 transition={{duration: 0.6, ease: "easeOut"}}
             >
-                Chiemezie Uchenwoke
+                <span className="text-goldmaize">ST</span>AN<span className="text-purple">LEY</span> <span className="text-goldmeat">OW</span>AR<span className="text-goldmaize">IE</span><span className="text-purple">TA</span><span className="text-goldmaize">...</span>
             </motion.h2>
 
             <motion.p 
-                className="text-lite-gray/90 w-[90%] max-w-[39rem] lg:max-w-[47rem] text-center text-sm sm:text-base lg:text-[1.25rem] leading-6 sm:leading-7 lg:leading-8 font-medium"
+                className="text-lite-gray/90 w-[90%] max-w-[39rem] lg:max-w-[47rem] text-center text-sm sm:text-base lg:text-[1.25rem] leading-6 sm:leading-7 lg:leading-8 montserrat-regular"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
             >
-                Fullstack Developer skilled in building modern & responsive web solutions that delivers value and enhance user experience. I help businesses and organizations bring their ideas to life through innovative design and development.
+                Backend Software Engineer | Architecting Scalable API Backends & Secure Cloud Systems | Python (FastAPI) • TypeScript (Express) • PostgreSQL • MongoDB • Redis
             </motion.p>
 
             <div className="px-4 w-full flex flex-col min-[450px]:flex-row min-[450px]:justify-center gap-4 sm:gap-6 mt-2">
                 <a 
-                    href="/Chiemezie_Uchenwoke_CV.pdf"
+                    href="/src/assets/stanley-owarieta-cv.pdf"
                     download
-                    className="bg-pri-blue text-white-shade py-3 lg:py-3.5 px-10 rounded-md font-semibold capitalize flex gap-2 items-center justify-center w-full text-center min-[450px]:w-fit hover:scale-105 duration-300 transition ease-in-out hover:bg-blue-600/90"
+                    className="bg-gold text-white-shade py-3 lg:py-3.5 px-10 rounded-full font-semibold capitalize flex gap-2 items-center justify-center w-full text-center min-[450px]:w-fit hover:scale-105 duration-300 transition ease-in-out hover:bg-goldmeat"
                 >
                     Download Cv
                 </a>
 
                 <a 
                     href="#projects"
-                    className="border border-pri-blue text-pri-blue rounded-md font-semibold capitalize inline-block w-full text-center py-3 lg:py-3.5 px-10 min-[450px]:w-fit transition hover:bg-pri-blue hover:text-white-shade duration-300"
+                    className="border border-b-goldmaize text-gold rounded-full font-semibold capitalize inline-block w-full text-center py-3 lg:py-3.5 px-10 min-[450px]:w-fit sm:py-2  transition hover:bg-goldmaize hover:text-white-shade duration-300"
                 >
                     view my work
                 </a>

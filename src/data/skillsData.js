@@ -1,7 +1,8 @@
 import { IoLogoJavascript } from "react-icons/io";
-import { FaReact, FaNodeJs, FaDocker, FaGitAlt, FaGithub, FaHtml5, FaCss3Alt } from "react-icons/fa";
-import { SiExpress, SiTailwindcss } from "react-icons/si";
+import { FaReact, FaNodeJs, FaDocker, FaGitAlt, FaGithub, FaHtml5, FaCss3Alt, FaPython } from "react-icons/fa";
+import { SiExpress, SiTailwindcss, SiTypescript, SiFastapi } from "react-icons/si";
 import { BiLogoPostgresql, BiLogoMongodb } from "react-icons/bi";
+import { FaP, FaT } from "react-icons/fa6";
 
 const skillData = [
     {
@@ -36,8 +37,8 @@ const skillData = [
     },
     {
         id: 7,
-        icon: FaDocker,
-        skillName: "Docker"
+        icon: SiTypescript,
+        skillName: "Typescript"
     },
     {
         id: 8,
@@ -64,6 +65,22 @@ const skillData = [
         icon: FaCss3Alt,
         skillName: "CSS"
     },
+    {
+        id: 13,
+        icon: FaPython,
+        skillName: "Python"
+    },
+    {
+        id: 14,
+        icon: SiFastapi,
+        skillName: "FastAPI"    
+    },
+    {
+        id: 15,
+        icon: FaDocker,
+        skillName: "Docker"
+    }
+
 ];
 
 export default skillData;

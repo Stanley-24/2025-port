@@ -5,12 +5,12 @@ import SectionIntro from "../SectionIntro/SectionIntro";
 const MyServices = () => {
     return (
         <section 
-            className="w-full mt-20 py-18 flex flex-col items-center gap-10 md:gap-12 bg-dark-lite"
+            className="w-full mt-20 py-18 flex flex-col items-center gap-10 md:gap-12 bg-dkcharles"
             id="services"
         >
             <SectionIntro 
                 heading="My Services"
-                subtitle="What I can do for you"
+                subtitle="Things I can do for you, that you might not know I can."
             />
 
             <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">

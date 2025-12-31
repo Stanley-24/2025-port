@@ -4,7 +4,7 @@ import { FaGithub, FaHourglassHalf } from "react-icons/fa";
 const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, codeUrl, isLive, onClick}) => {
     return (
         <div 
-            className="rounded-lg overflow-hidden min-h-80 bg-dark-bg flex flex-col border border-white-shade/10 hover:border-pri-blue hover:scale-103 duration-200 ease-in-out cursor-pointer" 
+            className="rounded-lg overflow-hidden min-h-80 bg-dkblack flex flex-col border border-white-shade/10 hover:border-l-goldmeat hover:scale-103 duration-200 ease-in-out cursor-pointer" 
             onClick={onClick}
         >
             <div className="h-40 overflow-hidden ">
@@ -26,7 +26,7 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
                             return (
                                 <span 
                                     key={index} 
-                                    className="bg-blue-lite text-pri-blue text-xs py-1 px-3 whitespace-nowrap rounded-full capitalize"
+                                    className="bg-dkchacol text-goldmeat text-xs py-1 px-3 whitespace-nowrap rounded-full capitalize"
                                 > 
                                     {t} 
                                 </span>
@@ -41,27 +41,27 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
                         <>
                             <a 
                                 href={liveUrl}
-                                className="text-pri-blue flex items-center gap-2 font-bold cursor-pointer hover:text-blue-500/80 group"
+                                className="text-goldmeat flex items-center gap-2 font-bold cursor-pointer hover:text-goldmeat/80 group"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                             > 
-                                <LuSquareArrowOutUpRight className="text-pri-blue text-xl duration-200 group-hover:text-blue-500/80" /> 
+                                <LuSquareArrowOutUpRight className="text-gold text-xl duration-200 group-hover:text-goldmeat/80" /> 
                                 Live 
                             </a>
 
                             <a 
                                 href={codeUrl}
-                                className="text-pri-blue flex items-center gap-2 font-bold cursor-pointer hover:text-blue-500/80 group"
+                                className="text-gold flex items-center gap-2 font-bold cursor-pointer hover:text-goldmeat/80 group"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                             > 
-                                <FaGithub className="text-pri-blue hover:text-blue-600 duration-200 group-hover:text-blue-500/80" /> 
+                                <FaGithub className="text-goldmeat hover:text-goldmeat duration-200 group-hover:text-goldmeat/80" /> 
                                 code 
                             </a>
                         </> : 
-                            <span className="text-pri-blue font-bold flex items-center gap-2"><FaHourglassHalf /> Coming Soon</span>
+                            <span className="text-amaericagold font-bold flex items-center gap-2"><FaHourglassHalf /> Coming Soon</span>
                     }
                 </div>
             </div>

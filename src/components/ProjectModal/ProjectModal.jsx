@@ -34,7 +34,7 @@ const ProjectModal = ({project, onClose}) => {
                 <div className="w-full h-12 flex justify-end items-center border-b border-white-shade/10 py-2 px-4 lg:px-6">
                     <button 
                         onClick={onClose}
-                        className="border border-white/20 hover:border-white/40 w-8 h-8 rounded-full flex justify-center items-center cursor-pointer text-white-shade/40 hover:text-white-shade/70 duration-200"
+                        className="border border-white/20 hover:border-goldmeat/40 w-8 h-8 rounded-full flex justify-center items-center cursor-pointer text-white-shade/40 hover:text-white-shade/70 duration-200"
                     >
                         <IoMdClose className="text-lg" />
                     </button>
@@ -55,7 +55,7 @@ const ProjectModal = ({project, onClose}) => {
                             {
                                 tools.map((s) => {
                                     return (
-                                        <span key={s} className="bg-white-shade/60 text-main-dark-bg whitespace-nowrap py-1 px-3 rounded-xl font-medium text-xs">
+                                        <span key={s} className="bg-dkblack/60 text-goldmeat whitespace-nowrap py-1 px-3 rounded-xl font-medium text-xs">
                                             {s}
                                         </span>
                                     );

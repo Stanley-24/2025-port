@@ -77,30 +77,30 @@ const Contact = () => {
     }
 
     return (
-        <section className="mt-16 container flex flex-col gap-12" id="contact">
+        <section className="mt-16 container bg-dkblack flex flex-col gap-12" id="contact">
             <SectionIntro 
-                heading="get in touch"
-                subtitle="Ready to start your next project? Let's work together!"
+                heading="Stay in touch"
+                subtitle="Ready to start your next project or have something to say? Use the form below!"
             />
             
             <form 
                 ref={formRef}
-                className="w-full max-w-[35rem] lg:max-w-[52rem] mx-auto bg-dark-bg border border-white-shade/10 rounded-lg py-8 px-4 lg:px-6 flex flex-col gap-8"
+                className="w-full max-w-[35rem] lg:max-w-[52rem] mx-auto bg-dkblack border border-l-goldmaize border-r-goldmaize rounded-lg py-8 px-4 lg:px-6 flex flex-col gap-8"
                 onSubmit={handleSubmit}
             >
                 <div className="w-full flex flex-col sm:flex-row gap-8">
                     <div className="flex flex-col gap-2 w-full sm:w-1/2">
                         <label 
                             htmlFor="fullname"
-                            className="contact-form-label"
+                            className="contact-form-label "
                         >
-                            Name
+                            FullName
                         </label>
 
                         <input 
                             type="text" 
-                            placeholder="your name" 
-                            className="contact-form-input"
+                            placeholder="enter full name" 
+                            className="contact-form-input "
                             name="fullname"
                             value={formData.fullname}
                             onChange={(e) => setFormData({...formData, fullname: e.target.value})}
@@ -136,7 +136,7 @@ const Contact = () => {
                     <label htmlFor="message" className="contact-form-label">message</label>
                     <textarea 
                         name="message" 
-                        placeholder="Tell me about your project..." 
+                        placeholder="Tell me what's on your mind..." 
                         className="contact-textarea"
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -145,7 +145,7 @@ const Contact = () => {
 
                 <button 
                     type="submit"
-                    className="flex items-center gap-2 bg-pri-blue py-3 justify-center rounded-lg text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-blue-600/80 duration-200 cursor-pointer active:scale-95"
+                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-goldmeat/80 duration-200 cursor-pointer active:scale-95 max-w-300 mx-auto py-2 px-6"
                     disabled={isSending}
                 >
                     <BsCursorFill />

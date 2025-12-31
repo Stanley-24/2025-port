@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+
 @theme {
     --font-inter: "Inter", sans-serif;
+
     --color-pri-blue: #3b82f6;
     --color-blue-lite: #3b82f633;
     --color-white-shade: #f8f8f8;
@@ -11,6 +13,30 @@
     --color-dark-bg: #1a1a1a;
     --color-dark-lite: #111827;
     --color-modal: #202938;
+
+   /* Gold Shades */
+
+    --color-gold: #ab8000;
+    --color-goldenrod: #DAA425;
+    --color-goldmeat: #E6BD37;
+    --color-goldmaize: #F2CA46;
+    --color-amaericagold: #D3AF37;
+    --color-satingold: #C49D29;
+
+
+    --color-purple: #c60ff0;
+    --color-blue-lite-1: #0ff0bb;
+
+
+
+    /* Black Shades */
+    
+    --color-dkblack: #000000;
+    --color-eerieblack: #1A1A1A;
+    --color-dkcharles: #282828;
+    --color-dkchacol: #303030;
+    --color-dkoynx: #38383B;
+    --color-dkoutersp: #474747
 }
 
 /* html{
@@ -30,13 +56,54 @@ html{
 }
 
 .contact-form-input{
-    @apply bg-blue-lite text-white-shade/60  placeholder:text-lite-gray/60 placeholder:capitalize px-4 h-12 rounded-lg border border-white-shade/10 outline-0 focus:border focus:border-pri-blue
+    @apply bg-dkcharles text-white-shade/60  placeholder:text-lite-gray/60 placeholder:capitalize px-4 h-12 rounded-lg border border-t-gold border-b-goldmeat outline-0 focus:border focus:border-gold text-white-shade/60
 }
 
 .email-input{
-    @apply bg-blue-lite placeholder:text-lite-gray/60 placeholder:lowercase px-4 h-12 rounded-lg border border-white-shade/10 outline-0 focus:border focus:border-pri-blue text-white-shade/60 
+    @apply bg-dkcharles placeholder:text-lite-gray/60 placeholder:lowercase px-4 h-12 rounded-lg border border-t-gold border-b-goldmeat outline-0 focus:border focus:border-gold text-white-shade/60 
 }
 
 .contact-textarea{
-    @apply bg-blue-lite placeholder:text-lite-gray/60 py-2 px-4 h-40 rounded-lg border border-white-shade/10 outline-0 overflow-auto text-white-shade/60 focus:border focus:border-pri-blue
+    @apply bg-dkcharles placeholder:text-lite-gray/60 py-2 px-4 h-40 rounded-lg border border-t-goldmeat  border-b-goldmeat outline-0 overflow-auto text-white-shade/60 focus:border focus:border-gold
 } 
+
+
+.amatic-sc-regular {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.amatic-sc-bold {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+.montserrat-regular {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.molengo-regular {
+  font-family: "Molengo", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.jetbrains-mono-regular {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.jetbrains-mono-bold {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: bold;
+}

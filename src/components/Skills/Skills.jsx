@@ -5,7 +5,7 @@ import skillData from "../../data/skillsData";
 const MySkills = () => {
     return (
         <section 
-            className="w-full mt-16 flex flex-col items-center gap-10 md:gap-12 bg-main-dark-bg"
+            className="w-full mt-16 flex flex-col items-center gap-10 md:gap-12 bg-dkblack pb-16"
         >
 
             <SectionIntro 

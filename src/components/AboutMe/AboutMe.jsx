@@ -1,87 +1,131 @@
-import myPic from "../../assets/chiemezie-uche.png";
+import myPic from "../../assets/stan-pic.jpg";
 import { CiUser } from "react-icons/ci";
 import BackendSkillsItem from "./BackendSkillItem";
 import backendSkillsData from "../../data/backendSkillsData";
+import backendtoolsData from "../../data/backendtoolsData";
+import BackendToolsItem from "./BackendToolsItem";
 
 const AboutMe = () => {
     return (
-        <div 
-            className="container flex flex-col md:flex-row gap-8 mt-8 min-h-[calc(75vh-4rem)]"
-        >
-            <div className="border border-white-shade/15 rounded-lg w-full md:w-[17rem] flex flex-col items-center gap-3.5 py-6 px-4 h-fit">
-                <div className="w-48 h-48 rounded-full overflow-hidden bg-dark-gray/10">
-                    <img 
-                        src={myPic} 
-                        alt="Chiemezie Uchenwoke's picture" 
-                        className="w-full h-full object-cover relative top-4"
-                    />
+        <div className="container flex flex-col md:flex-row gap-8 mt-8 min-h-screen">
+            {/* Left Sidebar - Stays Fixed */}
+            <div className="w-full md:w-[17rem] flex-shrink-0">
+                <div className="border border-white-shade/15 rounded-lg flex flex-col items-center gap-3.5 py-3 px-4 sticky top-20 md:top-22">
+                    {/* Adjust top-20 or top-24 depending on your navbar/header height */}
+                    <div className="w-48 h-48 rounded-full overflow-hidden bg-dark-gray/10">
+                        <img
+                            src={myPic}
+                            alt="Stanley Owarieta picture"
+                            className="w-full h-full object-cover relative top-4"
+                        />
+                    </div>
+
+                    <h4 className="text-white-shade amatic-sc-regular flex items-center gap-2 self-center text-2xl">
+                        <CiUser className="text-goldmaize" /> Stanley Owarieta
+                    </h4>
+
+                    <p className="text-white-shade/60 text-sm nunito-regular text-center">
+                        Software Engineer @ Rental Wave
+                    </p>
+
+                    <button
+                        className="text-white-shade bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-goldmeat duration-300"
+                        onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/10-mins-virtual-call", "_blank")}
+                    >
+                        Book a 10min call
+                    </button>
                 </div>
-
-                <h4 className="text-pri-blue/90 flex items-center gap-2 self-start">
-                    <CiUser /> Chiemezie Uchenwoke
-                </h4>
-
-                   <p className="text-white-shade/60 text-sm">
-                       I specialize in creating modern, responsive applications that deliver exceptional user experiences.
-                   </p>
-
-                <a 
-                    href="mailto:uchenwoke.chiemezie@gmail.com?subject=Project%20Inquiry" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white-shade bg-pri-blue inline-block w-full mt-2 py-2 px-10 text-center capitalize rounded-lg hover:bg-pri-blue/80 duration-300"
-                >
-                    get in touch
-                </a>
             </div>
 
-            <div className="w-full md:w-[calc(100%-17rem)] h-auto overflow-auto flex flex-col gap-6 border border-white-shade/15 rounded-lg py-6 px-4 lg:px-6">
-                <h2 className="capitalize text-white-shade font-bold sm:text-lg lg:text-xl">about me</h2>
-                <div className="text-white-shade/60 text-sm min-[900px]:text-base flex flex-col gap-5">
+            {/* Right Content - Only This Part Scrolls */}
+            <div className="w-full md:flex-1 overflow-y-auto border border-white-shade/15 rounded-lg py-3 px-4 lg:px-6 max-h-[calc(100vh-6rem)] pb-7">
+                {/* Adjust max-h-[calc(100vh-6rem)] based on your top margin + header */}
+                <h2 className="capitalize text-white-shade jetbrains-mono-bold font-bold sm:text-lg lg:text-xl">
+                    Everything you need to know
+                </h2>
+
+                <div className="text-white-shade/60 text-sm min-[900px]:text-base flex flex-col gap-5 mt-6">
                     <p className="leading-7">
-                        I am a Fullstack Developer skilled in building clean, responsive and user-centered web applications using technologies like React, Tailwind CSS, Node.js and Express. 
+                        I’m a Full-Stack Developer with a strong focus on backend engineering, building clean, scalable, and secure web applications using modern technologies.
                     </p>
 
                     <p className="leading-7">
-                        My journey into development has been shaped by consistent learning, curiosity, and a drive for excellence. I began with frontend development, building interfaces that focus on clarity, simplicity, and great user experience. Over time, I expanded into the backend, developing skills in:
+                        My development journey has been driven by curiosity, consistent learning, and a passion for solving real-world problems. I began in frontend development, crafting intuitive and responsive user interfaces, and gradually transitioned into backend engineering—where I now specialize in designing and maintaining reliable APIs and server-side systems.
+                    </p>
+
+                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Backend Expertise</h4>
+
+                    <p className="leading-7">
+                        I have hands-on experience building and maintaining production-ready systems with a strong emphasis on performance, security, and maintainability, including:
                     </p>
 
                     <ul className="list-inside flex flex-col gap-2">
-                        {
-                            backendSkillsData.map((skill) => {
-                                return (
-                                    <BackendSkillsItem 
-                                        key={skill.id}
-                                        {...skill}
-                                    />
-                                )
-                            })
-                        }
+                        {backendSkillsData.map((skill) => (
+                            <BackendSkillsItem key={skill.id} {...skill} />
+                        ))}
+                    </ul>
+
+                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Technologies</h4>
+
+                    <p className="leading-7">
+                        I currently work with and continue to deepen my expertise in:
+                    </p>
+
+                    <ul className="list-inside flex flex-col gap-2">
+                        {backendtoolsData.map((tool) => (
+                            <BackendToolsItem key={tool.id} {...tool} />
+                        ))}
                     </ul>
 
                     <p className="leading-7">
-                        Right now, I'm deepening my expertise in backend engineering, working with MongoDB and PostgreSQL, optimizing schemas, writing queries, and building secure, maintainable APIs. I enjoy applying what I learn directly into projects and solving real world problems. 
+                        In 2026, my focus is on mastering backend engineering best practices and system design while building robust, scalable APIs that meet real business needs.
+                    </p>
+
+                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">How I Work</h4>
+
+                    <p className="leading-7">
+                        I’m highly practical in my approach—what I learn, I apply immediately to real projects. I value clean code, clear communication, and collaboration, and I enjoy working in teams that care about quality and long-term impact.
                     </p>
 
                     <p className="leading-7">
-                        Beyond technical skills, I am deeply passionate about mentorship and knowledge-sharing. I believe in fostering collaborative environments and am committed to continuous growth, both as a developer and a professional.
+                        Beyond technical contributions, I’m passionate about mentorship and knowledge sharing, supporting junior developers, and fostering environments where people grow together.
+                    </p>
+
+                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Interests & Personality</h4>
+
+                    <p className="leading-7">
+                        Outside of coding, I enjoy mobile games, table tennis, soccer, instrumental music, reading, drawing, technology, sports cars, and fashion. These interests help keep me balanced, creative, and energized.
+                    </p>
+
+                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Current Work & Opportunities</h4>
+
+                    <p className="leading-7">
+                        I’m currently building the future at RentalWave and am open to full-time roles, contract work, and freelance opportunities where I can contribute meaningfully and grow with a strong team.
                     </p>
 
                     <p className="leading-7">
-                        My goal is to build meaningful and robust products, grow continously and contribute positively wherever i find myself.
+                        If you’re building a product and need a reliable engineer who cares about quality, impact, and collaboration, feel free to reach out or book a 10-minute discovery call.
+                    </p>
+
+                    <p className="leading-7">
+                        I also offer free mentorship for junior developers (limited to 3 available spots).
+                    </p>
+
+                    <p className="amatic-sc-bold font-bold text-white-shade text-4xl mt-4">
+                        <span className="text-goldmaize">St</span>an<span className="text-purple">ley</span><span className="text-goldmeat">...</span>
                     </p>
                 </div>
 
-                <a 
-                    className="border border-white-shade/30 bg-white-shade/20 text-white-shade my-3 py-3 rounded-lg font-semibold cursor-pointer hover:bg-white-shade/25 duration-300 active:scale-95 text-center"
-                    href="/Chiemezie_Uchenwoke_CV.pdf"
+                <a
+                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-goldmeat/80 duration-200 cursor-pointer active:scale-95 max-w-[300px] mx-auto mt-10"
+                    href="/src/assets/stanley-owarieta-cv.pdf"
                     download
                 >
                     Download CV
                 </a>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default AboutMe;
