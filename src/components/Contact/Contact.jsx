@@ -145,7 +145,7 @@ const Contact = () => {
 
                 <button 
                     type="submit"
-                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-goldmeat/80 duration-200 cursor-pointer active:scale-95 max-w-300 mx-auto py-2 px-6"
+                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-transparent hover:border-purple hover:border-2 duration-200 cursor-pointer active:scale-95 max-w-300 mx-auto py-2 px-6"
                     disabled={isSending}
                 >
                     <BsCursorFill />
