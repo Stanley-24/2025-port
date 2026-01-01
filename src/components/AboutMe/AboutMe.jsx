@@ -1,4 +1,4 @@
-import myPic from "../../assets/stan-pic.jpg";
+import myPic from "../../assets/stan-abt.jpeg";
 import { CiUser } from "react-icons/ci";
 import BackendSkillsItem from "./BackendSkillItem";
 import backendSkillsData from "../../data/backendSkillsData";
@@ -12,16 +12,16 @@ const AboutMe = () => {
             <div className="w-full md:w-[17rem] flex-shrink-0">
                 <div className="border border-white-shade/15 rounded-lg flex flex-col items-center gap-3.5 py-3 px-4 sticky top-20 md:top-22">
                     {/* Adjust top-20 or top-24 depending on your navbar/header height */}
-                    <div className="w-48 h-48 rounded-full overflow-hidden bg-dark-gray/10">
+                    <div className="w-48 h-48 rounded-full overflow-hidden bg-dark-gray/10 border-2 border-purple top-4">
                         <img
                             src={myPic}
                             alt="Stanley Owarieta picture"
-                            className="w-full h-full object-cover relative top-4"
+                            className="w-full h-full object-cover relative flip-horizontal scale-x-[-1]"
                         />
                     </div>
 
                     <h4 className="text-white-shade amatic-sc-regular flex items-center gap-2 self-center text-2xl">
-                        <CiUser className="text-goldmaize" /> Stanley Owarieta
+                        <CiUser className="text-purple" /> Stanley Owarieta
                     </h4>
 
                     <p className="text-white-shade/60 text-sm nunito-regular text-center">
@@ -29,7 +29,7 @@ const AboutMe = () => {
                     </p>
 
                     <button
-                        className="text-white-shade bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-goldmeat duration-300"
+                        className="text-white-shade bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-transparent duration-300 hover:border-purple hover:border-2"
                         onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/10-mins-virtual-call", "_blank")}
                     >
                         Book a 10min call
@@ -46,17 +46,17 @@ const AboutMe = () => {
 
                 <div className="text-white-shade/60 text-sm min-[900px]:text-base flex flex-col gap-5 mt-6">
                     <p className="leading-7">
-                        I’m a Full-Stack Developer with a strong focus on backend engineering, building clean, scalable, and secure web applications using modern technologies.
+                        From music production to a Full-Stack Developer with a strong focus on backend engineering, building clean, scalable, and secure web applications using modern technologies.
                     </p>
 
                     <p className="leading-7">
-                        My development journey has been driven by curiosity, consistent learning, and a passion for solving real-world problems. I began in frontend development, crafting intuitive and responsive user interfaces, and gradually transitioned into backend engineering—where I now specialize in designing and maintaining reliable APIs and server-side systems.
+                        My development journey has been driven by curiosity, consistent learning, and a passion for solving real-world problems. I began in frontend development with a drag and drop web builder, crafting intuitive and responsive user interfaces, and gradually transitioned into writing of codes and switching to backend engineering—where I now specialize in designing and maintaining reliable APIs and server-side systems.
                     </p>
 
                     <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Backend Expertise</h4>
 
                     <p className="leading-7">
-                        I have hands-on experience building and maintaining production-ready systems with a strong emphasis on performance, security, and maintainability, including:
+                        I have experience building and maintaining production-ready systems with a strong emphasis on performance, security, and maintainability, including:
                     </p>
 
                     <ul className="list-inside flex flex-col gap-2">
@@ -117,11 +117,15 @@ const AboutMe = () => {
                 </div>
 
                 <a
-                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-goldmeat/80 duration-200 cursor-pointer active:scale-95 max-w-[300px] mx-auto mt-10"
-                    href="/src/assets/stanley-owarieta-cv.pdf"
-                    download
+                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-transparent hover:border-2 hover:border-purple duration-200 cursor-pointer active:scale-95 max-w-[170px] mx-auto mt-10"
+                    href="https://tinyurl.com/owarieta"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Button to view cv in about section"
+                    alt="Button to view cv in about section"
+                    aria-description="button to open google drive and view cv"
                 >
-                    Download CV
+                    View CV
                 </a>
             </div>
         </div>
