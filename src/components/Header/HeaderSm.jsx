@@ -45,6 +45,15 @@ const HeaderSm = ({isHomePage}) => {
                                     </NavLink>
                                 </li>
 
+                                {
+                                    isHomePage && 
+                                    <>
+                                        <li><a href="#projects" className="text-white capitalize hover:text-goldmeat duration-100">projects</a></li>
+
+                                        <li><a href="#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</a></li>
+                                    </>
+                                }
+
                                 <li>
                                     <NavLink 
                                         to="/about" 
@@ -55,15 +64,7 @@ const HeaderSm = ({isHomePage}) => {
                                         about
                                     </NavLink>
                                 </li>
-                                
-                                {
-                                    isHomePage && 
-                                    <>
-                                        <li><a href="#projects" className="text-white capitalize hover:text-goldmeat duration-100">projects</a></li>
-
-                                        <li><a href="#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</a></li>
-                                    </>
-                                }
+                            
                             </ul>
 
                             <div className="flex gap-4">
