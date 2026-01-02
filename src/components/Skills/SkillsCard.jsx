@@ -3,7 +3,7 @@ const SkillsCard = ({ icon: Icon, skillName, index }) => {
         <div
             className="bg-dkchacol/20 hover:bg-goldmeat/35 duration-300 py-6 rounded-lg flex flex-col items-center gap-4 border border-white-shade/10 shadow-xl shadow-white-shade/3"
         >
-            <span className="w-14 h-14 lg:w-16 lg:h-16 flex justify-center items-center border border-purple rounded-lg bg-main-dkblack">
+            <span className="w-14 h-14 lg:w-16 lg:h-16 flex justify-center items-center border border-purple  rounded-lg bg-main-dkblack">
                 <Icon className="text-white-shade text-3xl lg:text-4xl" />
             </span>
 
