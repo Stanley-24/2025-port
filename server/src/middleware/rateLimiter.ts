@@ -28,11 +28,15 @@ export const contactRateLimiter = async (
   next: NextFunction
 ) => {
   const ip = req.ip || 'unknown-ip';
-  const email = req.body?.email?.trim().toLowerCase();
 
-  if (!email) {
+  const rawEmail = req.body?.email;
+  
+  if (!rawEmail || typeof rawEmail !== 'string') {
     return res.status(400).json({ success: false, message: 'Email is required.' });
   }
+  
+  const email = rawEmail.trim().toLowerCase();
+
 
   try {
     // 1. Check IP Limiter
