@@ -3,7 +3,7 @@ import ContactMessage from '../models/contactMessages';
 import { sendContactNotification, sendConfirmationEmail } from './emailService';
 import { contactFormSchema, ContactFormData } from '../lib/validation';
 import logger from '../lib/loggers';
-
+import { ValidationError } from '../lib/errors'
 export class ContactService {
   static async processContactForm(data: unknown) {
     // 1. Validate input
@@ -11,16 +11,15 @@ export class ContactService {
     if (!validation.success) {
       const errors = validation.error.format();
       logger.warn('Contact form validation failed', { errors, rawData: data });
-      throw {
-        status: 400,
-        message: 'Please correct the errors below',
-        errors: {
+      throw new ValidationError(
+        'Please correct the errors below',
+        {
           fullName: errors.fullName?._errors?.[0],
           email: errors.email?._errors?.[0],
           subject: errors.subject?._errors?.[0],
           message: errors.message?._errors?.[0],
-        },
-      };
+        }
+      );
     }
 
     const { fullName, email, subject, message } = validation.data;
