@@ -33,10 +33,9 @@ const Hero = () => {
                 <a 
                     href="https://tinyurl.com/owarieta"
                     target="_blank"
-                    rel="openner noreferrer"
+                    rel="noopener noreferrer"
                     className="bg-gold text-white-shade py-3 lg:py-3.5 px-10 rounded-full font-semibold capitalize flex gap-2 items-center justify-center w-full text-center min-[450px]:w-fit hover:scale-105 duration-300 transition ease-in-out hover:border-2 hover:border-purple hover:bg-transparent"
                     aria-label="Button to view CV in hero section"
-                    alt="Button to view CV in hero section"
                     aria-description="button to view CV of Stanley Owarieta"
                 >
                     View my CV
@@ -46,7 +45,6 @@ const Hero = () => {
                     href="#projects"
                     className="border-2 border-b-goldmeat text-gold rounded-full font-semibold capitalize inline-block w-full text-center py-3 lg:py-3.5 px-10 min-[450px]:w-fit sm:py-2  transition hover:bg-purple hover:text-white-shade duration-300"
                     aria-label="Button to view projects in hero section"
-                    alt="Button to view projects in hero section"
                     aria-description="button to navigate to projects section of the webpage"
                 >
                     view my work
