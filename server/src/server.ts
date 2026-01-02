@@ -8,7 +8,8 @@ import mongoose from 'mongoose';
 const PORT = config.PORT || 3000;
 
 
-connectDB().then(() => {
+connectDB()
+  .then(() => {
   const server = app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
   }).on('error', (error: any) => {
@@ -30,4 +31,8 @@ connectDB().then(() => {
 
   process.on('SIGTERM', () => shutdown('SIGTERM'));
   process.on('SIGINT', () => shutdown('SIGINT'));
- });
+})
+.catch((error) => {
+  console.error('Failed to initialize server:', error.message);
+  process.exit(1);
+});
