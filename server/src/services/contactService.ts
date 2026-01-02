@@ -4,18 +4,7 @@ import ContactMessage from '../models/contactMessages';
 import { sendContactNotification, sendConfirmationEmail } from './emailService';
 import { contactFormSchema } from '../lib/validation';
 import logger from '../lib/loggers';
-
-// Custom Error Class
-export class ValidationError extends Error {
-  constructor(
-    public message: string,
-    public errors: Record<string, string | undefined>,
-    public status: number = 400
-  ) {
-    super(message);
-    this.name = 'ValidationError';
-  }
-}
+import { ValidationError } from '../lib/errors';
 
 export class ContactService {
   static async processContactForm(data: unknown) {
