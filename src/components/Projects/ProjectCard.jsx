@@ -57,7 +57,7 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                             > 
-                                <FaGithub className="text-white-shade hover:text-goldmeat duration-200 group-hover:text-white-shade/80" /> 
+                                <FaGithub className="text-white-shade duration-200 group-hover:text-white-shade/80" /> 
                                 code 
                             </a>
                         </> : 
