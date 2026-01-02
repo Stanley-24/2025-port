@@ -121,9 +121,8 @@ const AboutMe = () => {
                     href="https://tinyurl.com/owarieta"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Button to view cv in about section"
-                    alt="Button to view cv in about section"
-                    aria-description="button to open google drive and view cv"
+                    aria-label="Button to view CV in about section"
+                    aria-description="button to open google drive and view CV"
                 >
                     View CV
                 </a>
