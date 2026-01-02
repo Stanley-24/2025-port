@@ -1,4 +1,10 @@
 import { createLogger, format, transports } from 'winston';
+import * as fs from 'fs';
+
+// Ensure logs directory exists
+if (!fs.existsSync('logs')) {
+  fs.mkdirSync('logs');
+}
 
 const logger = createLogger({
   level: 'info',

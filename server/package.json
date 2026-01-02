@@ -1,7 +1,7 @@
 {
   "name": "stanley portfolio server",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "type": "commonjs",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
@@ -22,7 +22,6 @@
     "ioredis": "^5.8.2",
     "mongoose": "^9.1.1",
     "rate-limiter-flexible": "^9.0.1",
-    "redis": "^5.10.0",
     "resend": "^6.6.0",
     "winston": "^3.19.0",
     "zod": "^4.3.4"

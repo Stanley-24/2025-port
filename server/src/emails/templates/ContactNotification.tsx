@@ -66,9 +66,9 @@ export const ContactNotificationEmail = ({
   </Html>
 );
 
-// Fixed: changed infoSection → section
+
 const main = { backgroundColor: '#000000', borderRadius: '8px', fontFamily: "'Helvetica Neue', Arial, sans-serif" };
-const container = { backgroundColor: '#282828', borderRadius: '8px',  margin: '20px auto', padding: '32px ', maxWidth: '600px' };
+const container = { backgroundColor: '#282828', borderRadius: '8px',  margin: '20px auto', padding: '32px', maxWidth: '600px' };
 const header = { textAlign: 'center' as const };
 const heading = { fontSize: '28px', fontWeight: 'bold', color: '#F2CA46', margin: '0 0 12px 0' };
 const subheading = { fontSize: '16px', color: '#DAA425', margin: '0' };

@@ -22,7 +22,8 @@ export const submitContact = async (req: Request, res: Response) => {
     logger.error('Unexpected error in contact form submission', {
       error: error.message,
       stack: error.stack,
-      body: req.body,
+      hasEmail: !!req.body?.email,
+      hasMessage: !!req.body?.message,
     });
 
     return res.status(500).json({
