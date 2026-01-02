@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const contactFormSchema = z.object({
   fullName: z.string()
     .min(4, 'Name must be at least 4 characters')
-    .max(31, 'Name cannot exceed 30 characters')
+    .max(31, 'Name cannot exceed 31 characters')
     .regex(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces'),
 
   email: z.string().email('Please enter a valid email address'),
