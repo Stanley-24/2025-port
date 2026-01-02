@@ -10,7 +10,7 @@ export class ContactService {
     const validation = contactFormSchema.safeParse(data);
     if (!validation.success) {
       const errors = validation.error.format();
-      logger.warn('Contact form validation failed', { errors, rawData: data });
+      logger.warn('Contact form validation failed', { errors });
       throw new ValidationError(
         'Please correct the errors below',
         {
