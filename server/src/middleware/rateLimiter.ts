@@ -2,12 +2,13 @@ import { RateLimiterRedis, RateLimiterRes } from 'rate-limiter-flexible';
 import { redisClient } from '../configs/redis';
 import { Request, Response, NextFunction } from 'express';
 import logger from '../lib/loggers';
+import { error } from 'winston';
 
 // Rate limiter by IP
 const ipRateLimiter = new RateLimiterRedis({
   storeClient: redisClient,
   keyPrefix: 'rl_ip',
-  points: 2,
+  points: 10,
   duration: 60 * 15,      
   blockDuration: 60 * 30, 
 });
@@ -27,86 +28,65 @@ export const contactRateLimiter = async (
   next: NextFunction
 ) => {
   const ip = req.ip || 'unknown-ip';
-  const body = req.body || {};
+  const email = req.body?.email?.trim().toLowerCase();
 
-  const rawEmail = body.email;
-  if (!rawEmail || typeof rawEmail !== 'string') {
-    logger.warn('Contact form attempt without email', { ip, body });
-    return res.status(400).json({
-      success: false,
-      message: 'Email is required.',
-    });
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required.' });
   }
 
-  const email = rawEmail.trim().toLowerCase();
-
   try {
-    // Try to consume from both in parallel
-    const [ipResult, emailResult] = await Promise.all([
-      ipRateLimiter.consume(ip),
-      emailRateLimiter.consume(email),
-    ]);
+    // 1. Check IP Limiter
+    const ipResult = await ipRateLimiter.consume(ip);
 
-    // Both succeeded → set headers and proceed
-    res.set({
-      'X-RateLimit-Limit-IP': ipRateLimiter.points.toString(),
-      'X-RateLimit-Remaining-IP': ipResult.remainingPoints.toString(),
-      'X-RateLimit-Reset-IP': Math.ceil((Date.now() + ipResult.msBeforeNext) / 1000).toString(),
+    try {
+      // 2. Check Email Limiter
+      const emailResult = await emailRateLimiter.consume(email);
 
-      'X-RateLimit-Limit-Email': emailRateLimiter.points.toString(),
-      'X-RateLimit-Remaining-Email': emailResult.remainingPoints.toString(),
-    });
+      // --- SUCCESS CASE ---
+      // Both limiters passed. Set headers and move to the next middleware.
+      res.set({
+        'X-RateLimit-Limit-IP': ipRateLimiter.points.toString(),
+        'X-RateLimit-Remaining-IP': ipResult.remainingPoints.toString(),
+      });
+      
+      return next(); 
 
-    return next();
-  } catch (error) {
-    // At least one limiter rejected
-    let msBeforeNext = 900000; // fallback: 15 minutes
-    let limiterName = 'unknown';
-    let consumedPoints = 0;
+    } catch (emailErr) {
+      // Email limit failed - Rollback the IP point we just consumed
+      await ipRateLimiter.reward(ip, 1);
 
-    if (error instanceof RateLimiterRes) {
-      msBeforeNext = error.msBeforeNext;
-      consumedPoints = error.consumedPoints;
-
-      // Determine which one failed
-      if (consumedPoints > ipRateLimiter.points && consumedPoints > emailRateLimiter.points) {
-        limiterName = 'both';
-      } else if (consumedPoints > ipRateLimiter.points) {
-        limiterName = 'IP';
-      } else if (consumedPoints > emailRateLimiter.points) {
-        limiterName = 'email';
+      if (emailErr instanceof RateLimiterRes) {
+        res.set('Retry-After', Math.ceil(emailErr.msBeforeNext / 1000).toString());
+        return res.status(429).json({
+          success: false,
+          message: 'Too many messages sent. Please try again later.',
+          details: 'Daily limit reached for this email address.',
+        });
       }
-    } else {
-      // Unexpected error (e.g. Redis disconnected)
-      logger.error('Rate limiter unexpected error', { error, ip, email });
-      return res.status(500).json({
+      throw emailErr; // Fall through to outer catch for Redis errors
+    }
+
+  } catch (ipErr) {
+    if (ipErr instanceof RateLimiterRes) {
+      res.set('Retry-After', Math.ceil(ipErr.msBeforeNext / 1000).toString());
+      return res.status(429).json({
         success: false,
-        message: 'Service temporarily unavailable. Please try again later.',
+        message: 'Too many messages sent. Please try again later.',
+        details: 'Too many attempts from this network.',
       });
     }
 
-    logger.warn('Contact form rate limit exceeded', {
-      ip,
-      email,
-      limiter: limiterName,
-      consumedPoints,
-      msBeforeNext,
+    // --- SYSTEM ERROR CASE ---
+    // If we reach here, it's likely a Redis connection issue
+    logger.error('Rate limiter system error', { 
+      error: ipErr instanceof Error ? ipErr.message : ipErr, 
+      ip, 
+      email 
     });
-
-    const retryAfter = Math.ceil(msBeforeNext / 1000);
-
-    res.set('Retry-After', retryAfter.toString());
-
-    return res.status(429).json({
+    
+    return res.status(500).json({
       success: false,
-      message: 'Too many messages sent. Please try again later.',
-      retryAfter,
-      details:
-        limiterName === 'email'
-          ? 'You have reached the daily limit for this email address.'
-          : limiterName === 'IP'
-          ? 'Too many attempts from this network. Try again later.'
-          : 'Rate limit exceeded. Please wait before sending another message.',
+      message: 'Service temporarily unavailable. Please try again later.',
     });
   }
 };
