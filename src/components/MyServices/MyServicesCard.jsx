@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 
 const MyServicesCard = ({icon: Icon, title, description}) => {
     return (
-        <div className='flex flex-col gap-4 border border-white-shade/20 py-8 lg:py-10 px-4 lg:px-6 rounded-lg bg-main-dark-bg hover:border-b-goldmeat/90 group'>
+        <div className='flex flex-col gap-4 border border-white-shade/20 py-8 lg:py-10 px-4 lg:px-6 rounded-lg bg-main-dark-bg hover:border-b-purple/90 group'>
             <span 
-                className='flex justify-center items-center w-12 h-13 border border-goldmeat/90 rounded-lg bg-dark-lite group-hover:brightness-130 duration-200 ease-in-out'
+                className='flex justify-center items-center w-12 h-13 border-2 border-goldmeat/90 rounded-lg bg-dark-lite group-hover:brightness-130 duration-200 ease-in-out'
             >
-                <Icon className="text-goldmeat text-xl lg:text-2xl" />
+                <Icon className="text-goldmeat  text-xl lg:text-2xl" />
             </span>
 
             <h3

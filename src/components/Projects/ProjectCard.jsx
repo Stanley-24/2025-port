@@ -41,23 +41,23 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
                         <>
                             <a 
                                 href={liveUrl}
-                                className="text-goldmeat flex items-center gap-2 font-bold cursor-pointer hover:text-goldmeat/80 group"
+                                className="text-purple flex items-center gap-2 font-bold cursor-pointer hover:text-purple/80 group"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                             > 
-                                <LuSquareArrowOutUpRight className="text-gold text-xl duration-200 group-hover:text-goldmeat/80" /> 
+                                <LuSquareArrowOutUpRight className="text-white-shade text-xl duration-200 group-hover:text-white-shade/80" /> 
                                 Live 
                             </a>
 
                             <a 
                                 href={codeUrl}
-                                className="text-gold flex items-center gap-2 font-bold cursor-pointer hover:text-goldmeat/80 group"
+                                className="text-purple flex items-center gap-2 font-bold cursor-pointer hover:text-purple/80 group"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                             > 
-                                <FaGithub className="text-goldmeat hover:text-goldmeat duration-200 group-hover:text-goldmeat/80" /> 
+                                <FaGithub className="text-white-shade duration-200 group-hover:text-white-shade/80" /> 
                                 code 
                             </a>
                         </> : 
