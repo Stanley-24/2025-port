@@ -4,6 +4,7 @@ import { connectDB } from './configs/database';
 import config from './configs/config';
 
 import mongoose from 'mongoose';
+import { redisClient } from './configs/redis';
 
 const PORT = config.PORT;
 
@@ -25,6 +26,7 @@ connectDB()
       await mongoose.connection.close();
       console.log('MongoDB connection closed');
       // Close Redis client if applicable
+      await redisClient.quit();
       process.exit(0);
     });
   };
