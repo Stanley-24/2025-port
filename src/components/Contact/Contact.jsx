@@ -15,7 +15,7 @@ const Contact = () => {
 
   return (
     <>
-      <ContactUI
+      <ContactUi
         formData={formData}
         isSending={isSending}
         onChange={handleChange}
