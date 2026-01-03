@@ -84,8 +84,7 @@ export const contactRateLimiter = async (
     // If we reach here, it's likely a Redis connection issue
     logger.error('Rate limiter system error', { 
       error: ipErr instanceof Error ? ipErr.message : ipErr, 
-      ip, 
-      email 
+      ip,  
     });
     
     return res.status(500).json({
