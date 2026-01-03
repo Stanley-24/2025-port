@@ -1,7 +1,7 @@
 // hooks/useContactForm.js
 import { useState } from "react";
 
-const API_URL = "https://stanley-portfolio-2026.onrender.com/api/v1/contact";
+const API_URL = import.meta.env.VITE_API_KEY;
 
 export const useContactForm = () => {
   const [formData, setFormData] = useState({
@@ -40,7 +40,14 @@ export const useContactForm = () => {
         }),
       });
 
-      const data = await response.json();
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        // Server returned non-JSON (likely HTML error page)
+        data = { success: false, message: "Server error. Please try again later." };
+      }
 
       if (response.ok && data.success) {
         setNotification({
