@@ -26,3 +26,7 @@ dist-ssr
 node_modules/
 .vercel
 .env
+
+
+# Jest coverage
+coverage/
