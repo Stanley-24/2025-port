@@ -5,7 +5,7 @@ import config from './configs/config';
 
 import mongoose from 'mongoose';
 
-const PORT = config.PORT || 3000;
+const PORT = config.PORT;
 
 
 connectDB()
