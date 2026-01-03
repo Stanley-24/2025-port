@@ -1,5 +1,5 @@
 {
-  "name": "stanley portfolio server",
+  "name": "stanley-portfolio-server",
   "version": "1.0.0",
   "main": "dist/server.js",
   "type": "commonjs",
