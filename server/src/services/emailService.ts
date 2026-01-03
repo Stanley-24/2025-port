@@ -20,7 +20,7 @@ export const sendContactNotification = async (data: {
       react: ContactNotificationEmail({ ...data }),
       replyTo: data.email, // Allows easy reply
     });
-    logger.info('Notification email sent to Stanley', { to: AdminEmail });
+    logger.info('Notification email sent to Stanley');
   } catch (error: any) {
     logger.error('Failed to send notification email', { error: error.message });
     throw error; // Let controller handle it
@@ -35,7 +35,7 @@ export const sendConfirmationEmail = async (data: { fullName: string; email: str
       subject: 'Thank you for reaching out!',
       react: ContactConfirmationEmail({ fullName: data.fullName }),
     });
-    logger.info('Confirmation email sent to submitter', { to: data.email });
+    logger.info('Confirmation email sent to submitter');
   } catch (error: any) {
     logger.error('Failed to send confirmation email', { error: error.message });
     // Don't throw — we don't want to fail the whole submission if auto-reply fails
