@@ -36,14 +36,14 @@ describe('contactRateLimiter', () => {
     const req = mockReq({ email: 'spam@example.com' });
     const res = mockRes();
 
-    // Allow a few
-    for (let i = 0; i < 10; i++) {
-      mockNext.mockClear();
-      res.status.mockClear();
-      await contactRateLimiter(req, res, mockNext);
-    }
-
-    // Next one should block
+   // Exhaust email limit (5 per 24h)
+    for (let i = 0; i < 5; i) {
+       mockNext.mockClear();
+       res.status.mockClear();
+       await contactRateLimiter(req, res, mockNext);
+     };
+ 
+    // 6th request should block due to email limit
     await contactRateLimiter(req, res, mockNext);
 
     expect(res.status).toHaveBeenCalledWith(429);
