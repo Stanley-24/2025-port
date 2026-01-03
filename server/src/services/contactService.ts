@@ -63,8 +63,6 @@ export class ContactService {
     // 4. Log success
     logger.info('Contact form processed successfully', {
       messageId: newMessage._id,
-      fullName,
-      email,
     });
 
     return {
