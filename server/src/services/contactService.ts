@@ -55,7 +55,6 @@ export class ContactService {
     sendConfirmationEmail({ fullName, email }).catch((emailError) => {
       logger.error('Failed to send confirmation email', {
         messageId: newMessage._id,
-        to: email,
         error: emailError,
       });
     });
