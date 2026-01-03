@@ -4,7 +4,13 @@ import logger from '../lib/loggers';
 
 export const connectDB = async (): Promise<void> => {
   try {
-    const conn = await mongoose.connect(Config.MONGO_URI);
+    const conn = await mongoose.connect(Config.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000, 
+      maxPoolSize: 10,                
+      minPoolSize: 2,                  
+      retryWrites: true,               
+      retryReads: true,                
+    });
     logger.info(`MongoDB Connected: ${conn.connection.host}`);
     mongoose.connection.on('disconnected', () => {
       logger.warn('MongoDB disconnected. Attempting to reconnect...');
@@ -22,3 +28,6 @@ export const connectDB = async (): Promise<void> => {
     process.exit(1);
   }
 };
+
+
+
