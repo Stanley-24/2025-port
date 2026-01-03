@@ -37,7 +37,7 @@ describe('contactRateLimiter', () => {
     const res = mockRes();
 
    // Exhaust email limit (5 per 24h)
-    for (let i = 0; i < 5; i) {
+    for (let i = 0; i < 5; i++) {
        mockNext.mockClear();
        res.status.mockClear();
        await contactRateLimiter(req, res, mockNext);
