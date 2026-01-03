@@ -2,11 +2,15 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import contactRoutes from './routes/contactRoute';
+import config from './configs/config';
 
 const app = express();
 
 app.set('trust proxy', 1)
-app.use(cors());
+app.use(cors({
+  origin: config.FRONTEND_URL || 'https://stanleyowarieta.com',
+  credentials: true
+}));
 app.use(helmet());
 app.use(express.json({ limit: '100kb' }));
 

@@ -5,6 +5,7 @@ interface Config {
   AdminEmail: string;
   SenderEmail: string;
   PORT: string;
+  FRONTEND_URL: string;
 }
 
 const config: Config = {
@@ -26,6 +27,9 @@ const config: Config = {
   })(),
   PORT: process.env.PORT || (() => { throw new Error(
     'PORT is not defined in environment variables');
+  })(),
+  FRONTEND_URL: process.env.FRONTEND_URL || (() => { throw new Error(
+    'FRONTEND_URL is not defined in environment variables');
   })(),
 };
 
