@@ -23,10 +23,18 @@ connectDB()
     console.log(`${signal} received. Closing server gracefully...`);
     server.close(async () => {
       console.log('HTTP server closed');
-      await mongoose.connection.close();
-      console.log('MongoDB connection closed');
-      // Close Redis client if applicable
-      await redisClient.quit();
+       try {
+          await mongoose.connection.close();
+          console.log('MongoDB connection closed');
+        } catch (error: any) {
+          console.error('Error closing MongoDB:', error.message);
+        }
+        try {
+          await redisClient.quit();
+          console.log('Redis connection closed');
+        } catch (error: any) {
+          console.error('Error closing Redis:', error.message);
+        }
       process.exit(0);
     });
   };
