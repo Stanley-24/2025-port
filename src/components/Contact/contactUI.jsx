@@ -96,7 +96,7 @@ const ContactUi = ({ formData, fieldErrors, isSending, onChange, onSubmit }) => 
             value={formData.message}
             onChange={onChange}
             required
-          />
+          ></textarea>
           {fieldErrors?.message && (
             <p className="text-red-400 text-sm mt-1 animate-fade-in">
               {fieldErrors.message}
