@@ -2,9 +2,6 @@
 import { useState } from "react";
 const apiUrl = import.meta.env.VITE_API_URL;
 
-if (import.meta.env.DEV && !apiUrl) {
-  console.warn("VITE_API_URL is not set — check your .env file in project root");
-}
 
 export const useContactForm = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +37,19 @@ export const useContactForm = () => {
     setNotification(null);
     setFieldErrors({}); // Clear previous field errors
 
+      // Optional runtime safety check (only in development)
+      if (!apiUrl) {
+        console.error("API_URL is missing! Set VITE_API_URL in your env file");
+        setNotification({
+          title: "Dev Error",
+          message: "Contact form endpoint not set.",
+          isSuccess: false,
+          isError: true,
+        });
+        setIsSending(false);
+        return;
+      }
+
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -53,19 +63,6 @@ export const useContactForm = () => {
           message: formData.message,
         }),
       });
-
-            // Optional runtime safety check (only in development)
-      if (!apiUrl) {
-        console.error("API_URL is missing! Set VITE_API_URL in your env file");
-        setNotification({
-          title: "Dev Error",
-          message: "Contact form endpoint not set.",
-          isSuccess: false,
-          isError: true,
-        });
-        setIsSending(false);
-        return;
-      }
 
       let data = { success: false, message: "Server error. Please try again later." };
 
