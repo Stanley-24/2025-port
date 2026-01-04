@@ -13,6 +13,7 @@ const PaymentSchema = new Schema<IPayment>({
   status: { type: String, enum: ['pending', 'successful', 'failed'], default: 'pending' },
   flutterwaveData: { type: Schema.Types.Mixed },
   meetingLink: { type: String },
+  message: { type: String },
   followedUp: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

@@ -14,6 +14,7 @@ export const initiatePayment = async (data: {
   email: string;
   service: string;
   amount: number;
+  message?: string;
 }) => {
   const { fullName, email, service, amount } = data;
 
@@ -29,6 +30,7 @@ export const initiatePayment = async (data: {
     email,
     service,
     amount,
+    message: data.message || '',
     status: 'pending',
   });
   await payment.save();
