@@ -12,7 +12,7 @@ const ContactUi = ({ formData, fieldErrors, isSending, onChange, onSubmit }) => 
 
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-[35rem] lg:max-w-[52rem] mx-auto bg-dkblack border border-l-goldmaize border-r-goldmaize rounded-lg py-8 px-4 lg:px-6 flex flex-col gap-8"
+        className="w-full max-w-[35rem] lg:max-w-[52rem] mx-auto bg-dkblack border border-l-goldmaize border-r-goldmaize rounded-lg py-8 px-4 lg:px-6 flex flex-col gap-8 border-t-0 border-b-0"
       >
         <div className="w-full flex flex-col sm:flex-row gap-8">
           {/* Full Name */}

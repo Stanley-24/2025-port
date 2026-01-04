@@ -27,6 +27,15 @@ const HeaderLg = ({isHomePage}) => {
                     </NavLink>
 
 
+                    <NavLink 
+                        to="/services" 
+                        className={({ isActive }) =>
+                            isActive ? "text-goldmaize capitalize" : "text-white capitalize hover:text-goldmeat duration-100"
+                        }
+                    >
+                        my services
+                    </NavLink>
+
                     {
                         isHomePage && 
                         <>

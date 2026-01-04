@@ -45,6 +45,20 @@ const HeaderSm = ({isHomePage}) => {
                                     </NavLink>
                                 </li>
 
+                                <li>
+                                    <NavLink 
+                                        to="/services" 
+                                        className={({ isActive }) =>
+                                            isActive ? "text-goldmaize capitalize" : "text-white capitalize hover:text-goldmeat duration-100"
+                                        }
+                                    >
+                                        my services
+                                    </NavLink>
+
+                                    
+                                </li>
+
+                                        
                                 {
                                     isHomePage && 
                                     <>
@@ -63,7 +77,11 @@ const HeaderSm = ({isHomePage}) => {
                                     >
                                         about
                                     </NavLink>
+
+                                    
                                 </li>
+
+
                             
                             </ul>
 
