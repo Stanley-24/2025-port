@@ -6,6 +6,11 @@ interface Config {
   SenderEmail: string;
   PORT: string;
   FRONTEND_URL: string;
+  publicKey: string;
+  secretKey: string;
+  encryptionKey: string;
+  webhookSecret: string;
+  meetingLink: string;
 }
 
 const config: Config = {
@@ -31,6 +36,20 @@ const config: Config = {
   FRONTEND_URL: process.env.FRONTEND_URL || (() => { throw new Error(
     'FRONTEND_URL is not defined in environment variables');
   })(),
+  publicKey: process.env.FLUTTERWAVE_PUBLIC_KEY! || (() => { throw new Error(
+    'FLUTTERWAVE_PUBLIC_KEY is not defined in environment variables');
+  })(),
+  secretKey: process.env.FLUTTERWAVE_SECRET_KEY! || (() => { throw new Error(
+    'FLUTTERWAVE_SECRET_KEY is not defined in environment variables');
+  })(),
+  encryptionKey: process.env.FLUTTERWAVE_ENCRYPTION_KEY! || (() => { throw new Error(
+    'FLUTTERWAVE_ENCRYPTION_KEY is not defined in environment variables');
+  })(),
+  webhookSecret: process.env.FLUTTERWAVE_WEBHOOK_SECRET! || (() => { throw new Error(
+    'FLUTTERWAVE_WEBHOOK_SECRET is not defined in environment variables');
+  })(),
+  meetingLink: process.env.MEETING_LINK || 'https://calendly.com/stanleyowarieta/meeting'
 };
 
 export default config;
+
