@@ -1,5 +1,5 @@
 {
-  "name": "stanley portfolio server",
+  "name": "stanley-portfolio-server",
   "version": "1.0.0",
   "main": "dist/server.js",
   "type": "commonjs",
@@ -17,9 +17,12 @@
   "dependencies": {
     "@react-email/components": "^1.0.3",
     "@react-email/render": "^2.0.1",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
+    "flutterwave-node-v3": "^1.3.0",
     "helmet": "^8.1.0",
     "ioredis": "^5.8.2",
     "mongoose": "^9.1.1",
@@ -29,11 +32,14 @@
     "zod": "^4.3.4"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/ioredis": "^4.28.10",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "ioredis-mock": "^8.13.1",
     "jest": "^30.2.0",
     "mongodb-memory-server": "^11.0.1",
