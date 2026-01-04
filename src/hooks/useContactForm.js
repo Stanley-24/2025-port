@@ -1,7 +1,7 @@
 // hooks/useContactForm.js
 import { useState } from "react";
+const apiUrl = import.meta.env.VITE_API_URL;
 
-const API_URL = import.meta.env.VITE_API_KEY;
 
 export const useContactForm = () => {
   const [formData, setFormData] = useState({
@@ -11,23 +11,47 @@ export const useContactForm = () => {
     message: "",
   });
 
+  const [fieldErrors, setFieldErrors] = useState({}); 
   const [notification, setNotification] = useState(null);
   const [isSending, setIsSending] = useState(false);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // Clear error for this field as user types
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => ({
+        ...prev,
+        [name]: null,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
     setNotification(null);
+    setFieldErrors({}); // Clear previous field errors
+
+      // Optional runtime safety check (only in development)
+      if (!apiUrl) {
+        console.error("API_URL is missing! Set VITE_API_URL in your env file");
+        setNotification({
+          title: "Dev Error",
+          message: "Contact form endpoint not set.",
+          isSuccess: false,
+          isError: true,
+        });
+        setIsSending(false);
+        return;
+      }
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,13 +64,11 @@ export const useContactForm = () => {
         }),
       });
 
-      let data;
+      let data = { success: false, message: "Server error. Please try again later." };
+
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.includes("application/json")) {
         data = await response.json();
-      } else {
-        // Server returned non-JSON (likely HTML error page)
-        data = { success: false, message: "Server error. Please try again later." };
       }
 
       if (response.ok && data.success) {
@@ -57,13 +79,38 @@ export const useContactForm = () => {
           isError: false,
         });
         setFormData({ fullname: "", email: "", subject: "", message: "" });
+        setFieldErrors({});
       } else {
-        setNotification({
-          title: "Error!",
-          message: data.message || data.details || "Failed to send message. Please try again.",
-          isSuccess: false,
-          isError: true,
-        });
+        // Handle validation errors from server
+        let hasFieldErrors = false;
+
+        if (data.errors && typeof data.errors === "object") {
+          // Map server error keys to form field names if needed
+          // Example: server might return "fullName", but your form uses "fullname"
+          const mappedErrors = {};
+          
+          if (data.errors.fullName) mappedErrors.fullname = data.errors.fullName;
+          if (data.errors.email) mappedErrors.email = data.errors.email;
+          if (data.errors.subject) mappedErrors.subject = data.errors.subject;
+          if (data.errors.message) mappedErrors.message = data.errors.message;
+
+          setFieldErrors(mappedErrors);
+          hasFieldErrors = Object.keys(mappedErrors).length > 0;
+        }
+
+        // Fallback notification (only if no inline errors shown)
+        const errorMessage = hasFieldErrors
+          ? null // Don't show toast if inline errors are visible
+          : data.message || "Failed to send message. Please try again.";
+
+        if (errorMessage) {
+          setNotification({
+            title: "Error!",
+            message: errorMessage,
+            isSuccess: false,
+            isError: true,
+          });
+        }
       }
     } catch (error) {
       setNotification({
@@ -82,6 +129,7 @@ export const useContactForm = () => {
 
   return {
     formData,
+    fieldErrors, // ← Export this!
     isSending,
     notification,
     handleChange,

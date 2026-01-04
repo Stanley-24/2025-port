@@ -10,6 +10,7 @@ const Contact = () => {
     notification,
     handleChange,
     handleSubmit,
+    fieldErrors,
     closeNotification,
   } = useContactForm();
 
@@ -18,6 +19,7 @@ const Contact = () => {
       <ContactUi
         formData={formData}
         isSending={isSending}
+        fieldErrors={fieldErrors}
         onChange={handleChange}
         onSubmit={handleSubmit}
       />
