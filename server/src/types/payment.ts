@@ -6,6 +6,9 @@ export interface IPayment extends Document {
   fullName: string;
   service: string;
   amount: number;
+  depositAmount: number
+  fullAmount: number
+  balanceDue: number
   currency: string;
   status: 'pending' | 'successful' | 'failed';
   flutterwaveData?: any;
@@ -15,3 +18,4 @@ export interface IPayment extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+

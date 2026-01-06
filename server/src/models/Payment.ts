@@ -8,7 +8,10 @@ const PaymentSchema = new Schema<IPayment>({
   email: { type: String, required: true },
   fullName: { type: String, required: true },
   service: { type: String, required: true },
-  amount: { type: Number, required: true },
+  amount: { type: Number, required: true }, // deposit paid
+  depositAmount: { type: Number, required: true },
+  fullAmount: { type: Number, required: true },
+  balanceDue: { type: Number, required: true },
   currency: { type: String, default: 'NGN' },
   status: { type: String, enum: ['pending', 'successful', 'failed'], default: 'pending' },
   flutterwaveData: { type: Schema.Types.Mixed },

@@ -13,14 +13,19 @@ export const initiatePayment = async (data: {
   fullName: string;
   email: string;
   service: string;
-  amount: number;
+  amount: number; 
   message?: string;
+  fullAmount?: number; 
 }) => {
-  const { fullName, email, service, amount } = data;
+  const { fullName, email, service, amount, message = '', fullAmount: providedFull } = data;
 
   if (!fullName || !email || !service || !amount) {
     throw new Error('All fields are required');
   }
+
+  const depositAmount = amount;
+  const fullAmount = providedFull || Math.round(depositAmount / 0.7); // reverse calculate
+  const balanceDue = fullAmount - depositAmount;
 
   const tx_ref = `STAN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
@@ -29,11 +34,15 @@ export const initiatePayment = async (data: {
     fullName,
     email,
     service,
-    amount,
-    message: data.message || '',
+    amount: depositAmount,
+    depositAmount,
+    fullAmount,
+    balanceDue,
+    message,
     status: 'pending',
   });
   await payment.save();
+
 
   const payload = {
     tx_ref,
@@ -108,6 +117,10 @@ export const handleWebhookEvent = async (payload: any) => {
         fullName: payment.fullName,
         service: payment.service,
         meetingLink: payment.meetingLink!,
+        depositAmount: payment.depositAmount || payment.amount,
+        fullAmount: payment.fullAmount,
+        balanceDue: payment.balanceDue,
+        message: payment.message,
       }),
     });
   }
