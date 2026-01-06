@@ -1,4 +1,4 @@
-// src/components/Services/ServiceList.jsx
+// src/components/ServicesPage/ServiceList.jsx
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,16 +11,20 @@ const ServiceList = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   const handlePayClick = (service) => {
-    const amount = parseFloat(service.price.replace(/[^0-9.]/g, '')) * 1000000; // Adjust based on your pricing (M = million)
+    const fullAmount = parseInt(service.price);
+    const depositAmount = Math.round(fullAmount * 0.7); // 70%
+
     setSelectedService({
       title: service.title,
-      amount: Math.round(amount),
+      fullAmount,
+      depositAmount,
+      displayPrice: service.displayPrice,
     });
     setIsModalOpen(true);
   };
 
   const isPayable = (cta) => {
-    return cta !== "Schedule Call";
+    return !['Get Quote', 'Schedule Call'].includes(cta);
   };
 
   return (
@@ -37,7 +41,7 @@ const ServiceList = () => {
             </CardHeader>
             <CardContent className="text-lite-gray">
               <p>{service.description}</p>
-              <p className="mt-2 font-bold">{service.price}</p>
+              <p className="mt-2 font-bold text-goldmaize">{service.displayPrice}</p>
               <Button 
                 onClick={() => isPayable(service.cta) && handlePayClick(service)}
                 className="mt-4 bg-gold hover:bg-purple"
@@ -54,7 +58,9 @@ const ServiceList = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           service={selectedService.title}
-          amount={selectedService.amount}
+          amount={selectedService.depositAmount}
+          fullAmount={selectedService.fullAmount}
+          displayPrice={selectedService.displayPrice}
         />
       )}
     </section>

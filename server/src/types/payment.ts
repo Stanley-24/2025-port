@@ -10,6 +10,7 @@ export interface IPayment extends Document {
   status: 'pending' | 'successful' | 'failed';
   flutterwaveData?: any;
   meetingLink?: string;
+  message: string,
   followedUp: boolean;
   createdAt: Date;
   updatedAt: Date;

@@ -1,39 +1,32 @@
 // src/pages/PaymentResult.jsx
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const PaymentResult = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const status = query.get('status');
-  const tx_ref = query.get('tx_ref');
-
-  useEffect(() => {
-    // Optional: log or send analytics
-    console.log('Payment result:', { status, tx_ref });
-  }, [status, tx_ref]);
 
   const isSuccess = status === 'successful';
 
   return (
-    <div className="min-h-screen bg-dkblack flex items-center justify-center px-4">
-      <div className="text-center">
+    <div className="min-h-screen bg-dkblack flex items-center justify-center text-center px-4">
+      <div>
         <h1 className={`text-5xl font-bold mb-8 ${isSuccess ? 'text-goldmaize' : 'text-lite-gray'}`}>
-          {isSuccess ? 'Payment Successful! 🎉' : 'Payment Cancelled'}
+          {isSuccess ? 'Deposit Received! 🎉' : 'Payment Cancelled'}
         </h1>
         <p className="text-2xl text-lite-gray mb-10 max-w-2xl mx-auto">
           {isSuccess 
-            ? 'Thank you for your payment! I\'ll reach out soon to discuss your project and next steps.'
-            : 'No worries — your card wasn\'t charged. Feel free to try again or contact me directly.'
+            ? "Thank you for your 70% deposit! I'll reach out soon to confirm details and start your project."
+            : "No problem — you can try again anytime or contact me directly."
           }
         </p>
-        {tx_ref && (
-          <p className="text-lite-gray mb-8">
-            Transaction Reference: <span className="text-goldmaize font-mono">{tx_ref}</span>
+        {isSuccess && (
+          <p className="text-lg text-lite-gray mb-10">
+            The remaining 30% will be invoiced before final delivery.
           </p>
         )}
         <a 
-          href="/"
+          href="/" 
           className="inline-block bg-gold hover:bg-purple text-black font-bold py-4 px-10 rounded-full text-xl transition"
         >
           Back to Home
