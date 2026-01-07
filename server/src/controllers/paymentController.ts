@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { initiatePayment, handleWebhookEvent } from '../services/paymentService';
 import logger from '../lib/loggers';
 import config from '../configs/config';
+import crypto from 'crypto'
 
 export const initiate = async (req: Request, res: Response) => {
   try {
@@ -27,10 +28,17 @@ export const initiate = async (req: Request, res: Response) => {
 export const webhook = async (req: Request, res: Response) => {
   // Use req.get() which properly handles header normalization in Express
   const hash = req.get('verif-hash');
-  if (!hash || hash !== config.webhookSecret) {
-    return res.status(401).send('Unauthorized');
-  }
+     if (!hash || !timingSafeEqual(hash, config.webhookSecret)) {
+      return res.status(401).send('Unauthorized');
+    }
 
+ function timingSafeEqual(a: string, b: string): boolean {
+   if (a.length !== b.length) return false;
+   return crypto.timingSafeEqual(
+     Buffer.from(a, 'utf8'),
+     Buffer.from(b, 'utf8')
+   );
+ }
   try {
     // Parse Buffer body to JSON if needed
     const payload = Buffer.isBuffer(req.body)
