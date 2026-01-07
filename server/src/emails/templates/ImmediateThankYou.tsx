@@ -32,8 +32,8 @@ export const ImmediateThankYou = ({
   fullAmount,
   balanceDue,
   message,
-  currency?: string;
-  locale?: string;
+  currency = '₦',
+  locale = 'en-NG',
 }: ImmediateThankYouProps) => (
   <Html>
     <Head />
