@@ -18,6 +18,7 @@ const PaymentSchema = new Schema<IPayment>({
   meetingLink: { type: String },
   message: { type: String },
   followedUp: { type: Boolean, default: false },
+  emailSent: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

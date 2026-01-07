@@ -15,6 +15,7 @@ export interface IPayment extends Document {
   meetingLink?: string;
   message: string,
   followedUp: boolean;
+  emailSent:boolean
   createdAt: Date;
   updatedAt: Date;
 }
