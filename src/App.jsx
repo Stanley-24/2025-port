@@ -4,6 +4,7 @@ import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Services from "./pages/Services";
+import PaymentResult from "./pages/PaymentResult";
 
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/payment-success" element={<PaymentResult />} />
+        <Route path="/test" element={<div>TEST PAGE WORKS</div>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 

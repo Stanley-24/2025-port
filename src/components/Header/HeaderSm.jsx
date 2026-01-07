@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const HeaderSm = ({isHomePage}) => {
     const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
