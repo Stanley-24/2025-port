@@ -20,6 +20,8 @@ interface ImmediateThankYouProps {
   fullAmount: number;
   balanceDue: number;
   message?: string;
+  currency?: string;
+  locale?: string;
 }
 
 export const ImmediateThankYou = ({
@@ -30,6 +32,8 @@ export const ImmediateThankYou = ({
   fullAmount,
   balanceDue,
   message,
+  currency?: string;
+  locale?: string;
 }: ImmediateThankYouProps) => (
   <Html>
     <Head />
@@ -39,7 +43,7 @@ export const ImmediateThankYou = ({
         <Heading style={heading}>Thank You, {fullName}! 🎉</Heading>
 
         <Text style={text}>
-          Your <strong>70% deposit</strong> of <strong>₦{depositAmount.toLocaleString()}</strong> for <strong>{service}</strong> has been successfully received.
+          Your <strong>70% deposit</strong> of <strong>{currency}{depositAmount.toLocaleString(locale)}</strong>for <strong>{service}</strong> has been successfully received.
         </Text>
 
         <Text style={text}>
