@@ -25,8 +25,8 @@ export const initiatePayment = async (data: {
     fullAmount: providedFull,
   } = data;
 
-  if (!fullName || !email || !service || !amount) {
-    throw new Error('All fields are required');
+  if (!fullName || !email || !service || !amount || amount <= 0) {
+    throw new Error('All fields are required and amount must be positive');
   }
 
   const depositAmount = amount;
@@ -34,7 +34,7 @@ export const initiatePayment = async (data: {
     providedFull || Math.round(depositAmount / 0.7); // reverse calculate
   const balanceDue = fullAmount - depositAmount;
 
-  const tx_ref = `STAN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  const tx_ref = `STAN-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
 
   // Save payment intent
   const payment = new Payment({
