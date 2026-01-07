@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Flutterwave from 'flutterwave-node-v3';
 import Payment from '../models/Payment';
 import logger from '../lib/loggers';
 import { resend } from '../configs/resend';
