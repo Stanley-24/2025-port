@@ -19,8 +19,8 @@ const PaymentSchema = new Schema<IPayment>({
   message: { type: String },
   followedUp: { type: Boolean, default: false },
   emailSent: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-});
+}, {
+  timestamps: true  
+});;
 
 export default mongoose.model<IPayment>('Payment', PaymentSchema);
