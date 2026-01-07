@@ -5,6 +5,7 @@ import contactRoutes from './routes/contactRoute';
 import config from './configs/config';
 import paymentRoutes from './routes/paymentRoutes';
 import { flutterwaveWebhook } from './routes/flutterwaveWebhook';
+import { webhook } from './controllers/paymentController';
 
 const app = express();
 
@@ -16,6 +17,13 @@ app.use(cors({
 }));
 
 app.use(helmet());
+
+// ✅ RAW body for payment webhook BEFORE express.json()
+app.post(
+  '/api/v1/payment/webhook',
+  express.raw({ type: 'application/json' }),
+  webhook
+);
 
 // ✅ JSON for normal routes
 app.use(express.json({ limit: '100kb' }));
