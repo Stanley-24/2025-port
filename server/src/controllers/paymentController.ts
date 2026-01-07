@@ -17,7 +17,7 @@ export const initiate = async (req: Request, res: Response) => {
         message: 'All fields are required' 
       });
     }
-    logger.error('Payment initiation failed', { error: error.message });
+    logger.error('Payment initiation failed', error);
     res.status(500).json({ 
       success: false, 
       message: 'Failed to initiate payment' 
@@ -48,7 +48,7 @@ export const webhook = async (req: Request, res: Response) => {
     await handleWebhookEvent(payload);
     res.sendStatus(200);
   } catch (error: any) {
-    logger.error('Webhook processing failed', { error: error.message });
+    logger.error('Webhook processing failed', error);
     res.sendStatus(200); // Still return 200 to avoid retry spam
   }
 };
