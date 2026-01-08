@@ -31,7 +31,7 @@ export const initiatePayment = async (data: {
 
   const depositAmount = amount;
   const fullAmount =
-    providedFull || Math.round(depositAmount / 0.7); // reverse calculate
+    providedFull || Math.round(depositAmount / 0.7); 
   const balanceDue = fullAmount - depositAmount;
 
   const tx_ref = `STAN-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
@@ -98,7 +98,7 @@ export const initiatePayment = async (data: {
 
 /**
  * Handle Flutterwave webhook event
- * This MUST be idempotent
+ * This MUST be idempotent and race-condition safe
  */
 export const handleWebhookEvent = async (payload: any) => {
   if (payload?.event !== 'charge.completed') return;
@@ -107,47 +107,59 @@ export const handleWebhookEvent = async (payload: any) => {
   if (!tx_ref) return;
 
   const flutterwaveStatus = payload.data.status;
+  const status = ['successful', 'completed'].includes(flutterwaveStatus)
+    ? 'successful'
+    : 'failed';
 
-  const status =
-    ['successful', 'completed'].includes(flutterwaveStatus)
-      ? 'successful'
-      : 'failed';
 
+  const updateFields: any = {
+    status,
+    flutterwaveData: payload.data,
+    updatedAt: new Date(),
+    meetingLink: `${config.meetingLink}?tx_ref=${tx_ref}`,
+  };
+
+
+  if (status === 'successful') {
+    updateFields.emailSent = true;
+  }
+
+ 
   const payment = await Payment.findOneAndUpdate(
-    { tx_ref },
     {
-      status,
-      flutterwaveData: payload.data,
-      updatedAt: new Date(),
-      meetingLink: `${config.meetingLink}?tx_ref=${tx_ref}`,
+      tx_ref,
+      emailSent: { $ne: true }, 
     },
-    { new: true }
+    {
+      $set: updateFields,
+      $setOnInsert: {
+        createdAt: new Date(),
+        
+      },
+    },
+    {
+      new: true,
+      upsert: false,
+    }
   );
 
   if (!payment) {
-    logger.warn('Webhook received but payment not found', { tx_ref });
+    logger.info('Webhook ignored — payment not found or email already sent', { tx_ref });
     return;
   }
 
-  // 🛑 Idempotency guard (VERY IMPORTANT)
-  if (payment.status === 'successful' && payment.emailSent) {
-    logger.info('Webhook replay ignored — email already sent', { tx_ref });
-    return;
-  }
-
-  if (status === 'successful' && !payment.emailSent) {
+  if (status === 'successful') {
     logger.info('Payment successful — sending thank you email', { tx_ref });
 
     try {
-
       if (!payment.email) {
-        console.warn("No email provided for payment ID:", payment.id);
+        console.warn('No email provided for payment ID:', payment._id);
         return;
       }
 
       await resend.emails.send({
         from: `Stanley Owarieta <${config.SenderEmail}>`,
-        to: payment.email.trim(), // <- make sure no extra spaces
+        to: payment.email.trim(),
         subject: "Deposit Received — Let's Schedule Your Project!",
         react: ImmediateThankYou({
           fullName: payment.fullName,
@@ -160,24 +172,10 @@ export const handleWebhookEvent = async (payload: any) => {
         }),
       });
 
-      console.log("Email length:", payment.email.length);
-      console.log("Email valid:", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payment.email));
-
-
-
-      // ✅ Mark email as sent (atomic)
-      await Payment.updateOne(
-        { _id: payment._id },
-        { emailSent: true }
-      );
-
       logger.info('Thank you email sent successfully', { tx_ref });
     } catch (error: any) {
-      logger.error('Failed to send thank you email', {
-        tx_ref,
-        error,
-      });
-      // Never throw inside webhook
+      logger.error('Failed to send thank you email', { tx_ref, error });
+      
     }
   }
 };
