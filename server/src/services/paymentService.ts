@@ -67,7 +67,7 @@ export const initiatePayment = async (data: {
     customizations: {
       title: 'Stanley Owarieta - Services',
       description: `Payment for ${service}`,
-      logo: `${config.FRONTEND_URL}/logo.png`,
+      logo: `${config.FRONTEND_URL}/assets/stan-pic-DL1D6m0c.jpg`,
     },
   };
 
