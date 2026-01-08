@@ -11,10 +11,10 @@ export const initiate = async (req: Request, res: Response) => {
     res.json({ success: true, ...result });
   } catch (error: any) {
     // Specific handling for validation error
-    if (error.message === 'All fields are required') {
+    if (error.message && error.message.includes('fields are required')) {
       return res.status(400).json({ 
         success: false, 
-        message: 'All fields are required' 
+        message: error.message 
       });
     }
     logger.error('Payment initiation failed', error);
