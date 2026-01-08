@@ -7,7 +7,7 @@ export const usePayment = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const initiatePayment = async ({ fullName, email, service, amount }) => {
+  const initiatePayment = async ({ fullName, email, service, amount, message, fullAmount, }) => {
     setIsLoading(true);
     setError(null);
 
@@ -22,6 +22,8 @@ export const usePayment = () => {
           email,
           service,
           amount,
+          message,
+         fullAmount,
         }),
       });
 
