@@ -33,7 +33,7 @@ const CheckoutModal = ({ isOpen, onClose, service, amount, fullAmount, displayPr
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-dkblack border-2 border-goldmaize rounded-xl max-w-md w-full my-8 max-h-[90vh] overflow-y-auto">
+      <div className="bg-dkblack border-r-2 border-l-2 border-goldmaize rounded-xl max-w-md w-full my-8 max-h-[90vh] overflow-y-auto">
         <div className="p-6 pb-4">
           <h2 className="text-2xl md:text-3xl font-bold text-goldmaize text-center mb-3">
             Checkout
