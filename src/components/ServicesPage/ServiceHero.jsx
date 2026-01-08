@@ -22,7 +22,7 @@ const ServiceHero = () => {
                     size="lg" 
                     variant="transparent" 
                     className="border-gold border-b-2 border-t-1 text-purple text-1xl hover:bg-purple hover:text-white-shade hover:border-purple"
-                    onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/30min", "_blank")}
+                    onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/discovery-call", "_blank")}
                 >
                     Book a Discovery Call
                 </Button>
