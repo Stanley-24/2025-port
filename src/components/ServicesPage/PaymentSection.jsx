@@ -1,4 +1,4 @@
-// src/components/Services/PaymentSection.tsx
+// src/components/ServicesPage/PaymentSection.tsx
 import { Button } from "@/components/ui/button";
 
 const PaymentSection = () => {

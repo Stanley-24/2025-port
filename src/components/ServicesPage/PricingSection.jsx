@@ -1,4 +1,4 @@
-// src/components/Services/PricingSection.tsx
+// src/components/ServicesPage/PricingSection.tsx
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const PricingSection = () => {

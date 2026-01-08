@@ -1,4 +1,4 @@
-// src/components/Services/DeliverySection.tsx
+// src/components/ServicesPage/DeliverySection.tsx
 
 const DeliverySection = () => {
     return (
