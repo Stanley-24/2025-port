@@ -11,6 +11,7 @@ interface Config {
   encryptionKey: string;
   webhookSecret: string;
   meetingLink: string;
+  paymentLogo : string
 }
 
 const config: Config = {
@@ -48,7 +49,11 @@ const config: Config = {
   webhookSecret: process.env.FLUTTERWAVE_WEBHOOK_SECRET! || (() => { throw new Error(
     'FLUTTERWAVE_WEBHOOK_SECRET is not defined in environment variables');
   })(),
-  meetingLink: process.env.MEETING_LINK || 'https://calendly.com/stanleyowarieta/meeting'
+  meetingLink: process.env.MEETING_LINK || 'https://calendly.com/stanleyowarieta/meeting',
+
+  paymentLogo: process.env.PaymentLogo || (() => { throw new Error(
+    'PaymentLogo is not defined in environment variables');
+  })(),
 };
 
 export default config;
