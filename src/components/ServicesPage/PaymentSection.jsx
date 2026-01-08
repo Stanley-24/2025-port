@@ -11,7 +11,7 @@ const PaymentSection = () => {
                 <p className="text-lite-gray max-w-2xl mx-auto text-lg mb-10">
                     <strong>70% upfront</strong> to secure your slot and start work immediately.<br />
                     <strong>30% on final delivery</strong> after approval.<br /><br />
-                    We accept Paystack (cards, transfer), bank transfer, or USDT for international clients.
+                    We accept Flutterwave (cards, transfer), bank transfer, or USDT for international clients.
                 </p>
                 <Button 
                     size="lg" 
