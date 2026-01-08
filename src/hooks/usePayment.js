@@ -4,7 +4,7 @@ import { useState } from 'react';
 const paymentApi = import.meta.env.VITE_payment_api
 
 if (!paymentApi) {
-  console.error('VITE_payment_api environment variable is not configured');
+  throw new Error('VITE_payment_api environment variable is required but not configured');
 }
 
 export const usePayment = () => {
