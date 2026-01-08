@@ -93,7 +93,7 @@ export const webhook = async (req: Request, res: Response) => {
           tx_ref: txRef,
           error: verifyError.response?.data || verifyError.message,
         });
-        
+        return res.sendStatus(200);
       }
     }
 
