@@ -107,11 +107,6 @@ html {
     font-style: normal;
 }
 
-/* Optional: Base body styles for consistency */
-body {
-    @apply bg-dkblack text-white-shade;
-    font-family: "Montserrat", sans-serif;
-}
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
