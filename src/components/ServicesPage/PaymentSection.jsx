@@ -16,7 +16,7 @@ const PaymentSection = () => {
                 <Button 
                     size="lg" 
                     className="bg-gold hover:bg-purple text-white-shade text-lg px-10"
-                    onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/30min", "_blank")}
+                    onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/discovery-call", "_blank")}
                 >
                     Start Your Project Today
                 </Button>

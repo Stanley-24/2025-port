@@ -14,7 +14,7 @@ const PaymentResult = () => {
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
         <div 
-          className="bg-[#1A1A1A] border-4 border-[#F2CA46] rounded-2xl p-8 md:p-12 shadow-2xl"
+          className="bg-[#1A1A1A] border-r-3 border-l-3 border-[#F2CA46] rounded-2xl p-8 md:p-12 shadow-2xl"
         >
           {isSuccess ? (
             <>
