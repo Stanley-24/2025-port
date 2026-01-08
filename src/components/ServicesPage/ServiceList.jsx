@@ -12,6 +12,12 @@ const ServiceList = () => {
 
   const handlePayClick = (service) => {
     const fullAmount = parseInt(service.price);
+
+    if (isNaN(fullAmount) || fullAmount <= 0) {
+      console.error('Invalid service price:', service.price);
+      return;
+    }
+    
     const depositAmount = Math.round(fullAmount * 0.7); // 70%
 
     setSelectedService({
