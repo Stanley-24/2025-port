@@ -21,6 +21,6 @@ const PaymentSchema = new Schema<IPayment>({
   emailSent: { type: Boolean, default: false },
 }, {
   timestamps: true  
-});;
+});
 
 export default mongoose.model<IPayment>('Payment', PaymentSchema);
