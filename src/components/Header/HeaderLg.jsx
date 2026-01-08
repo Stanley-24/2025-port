@@ -1,7 +1,7 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const HeaderLg = ({isHomePage}) => {
     const navigate = useNavigate();
@@ -26,6 +26,15 @@ const HeaderLg = ({isHomePage}) => {
                         home
                     </NavLink>
 
+
+                    <NavLink 
+                        to="/services" 
+                        className={({ isActive }) =>
+                            isActive ? "text-goldmaize capitalize" : "text-white capitalize hover:text-goldmeat duration-100"
+                        }
+                    >
+                        my services
+                    </NavLink>
 
                     {
                         isHomePage && 

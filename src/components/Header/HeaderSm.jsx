@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { LuMenu } from "react-icons/lu";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const HeaderSm = ({isHomePage}) => {
     const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
@@ -45,6 +45,20 @@ const HeaderSm = ({isHomePage}) => {
                                     </NavLink>
                                 </li>
 
+                                <li>
+                                    <NavLink 
+                                        to="/services" 
+                                        className={({ isActive }) =>
+                                            isActive ? "text-goldmaize capitalize" : "text-white capitalize hover:text-goldmeat duration-100"
+                                        }
+                                    >
+                                        my services
+                                    </NavLink>
+
+                                    
+                                </li>
+
+                                        
                                 {
                                     isHomePage && 
                                     <>
@@ -63,7 +77,11 @@ const HeaderSm = ({isHomePage}) => {
                                     >
                                         about
                                     </NavLink>
+
+                                    
                                 </li>
+
+
                             
                             </ul>
 
