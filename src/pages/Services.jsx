@@ -8,6 +8,7 @@ import DeliverySection from "../components/ServicesPage/DeliverySection";
 import PaymentSection from "../components/ServicesPage/PaymentSection";
 import Contact from "../components/Contact/Contact";
 import Footer from "../components/Footer/Footer";
+import Testimonials from '@/components/Testimonials/Testimonials';
 
 const Services = () => {
     return (
@@ -19,6 +20,7 @@ const Services = () => {
             <PricingSection />
             <DeliverySection />
             <PaymentSection />
+            <Testimonials/>
             <Contact />
             <Footer />
         </>

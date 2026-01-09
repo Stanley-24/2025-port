@@ -6,6 +6,7 @@ import MySkills from "../components/Skills/Skills";
 import Projects from "../components/Projects/Projects";
 import Contact from "../components/Contact/Contact";
 import Footer from "../components/Footer/Footer";
+import Testimonials from "@/components/Testimonials/Testimonials";
 
 const HomePage = () => {
     return (
@@ -16,6 +17,7 @@ const HomePage = () => {
             <MyServices />
             <MySkills />
             <Projects />
+            <Testimonials/>
             <Contact />
             <Footer />
         </>
