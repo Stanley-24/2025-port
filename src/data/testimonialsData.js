@@ -3,13 +3,13 @@ export const testimonials = [
     quote: "Stanley is a dedicated and committed personality, aimed at learning, exploring, and making a difference.",
     name: "Mary Akinyode",
     role: "Software Engineer",
-    avatar: "../../public/mary-akinyode.jpg", // Optional: place images in public/avatars or use placeholder
+    avatar: "/avatars/mary-akinyode.jpg", // e.g. public/avatars/mary-akinyode.jpg
   },
   {
     quote: "Very great guy to work with",
     name: "MR E",
     role: "CEO @ Evolve",
-    avatar: "",
+    avatar: null,
   },
   {
     quote: "His backend portfolio showcases solid technical knowledge, clean implementation, and real-world problem-solving ability. Highly professional work.",
