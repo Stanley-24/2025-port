@@ -8,7 +8,7 @@ const Testimonials = () => {
   return (
     <section className="container py-16 bg-main-dark-bg">
       <SectionIntro 
-        heading="Here what others are saying"
+        heading="Hear what others are saying"
         subtitle="These are some of the people that it happened we have work and chat about softwares"
       />
       
