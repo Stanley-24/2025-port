@@ -9,7 +9,7 @@ const Testimonials = () => {
     <section className="container py-16 bg-main-dark-bg">
       <SectionIntro 
         heading="Hear what others are saying"
-        subtitle="These are some of the people that it happened we have work and chat about softwares"
+        subtitle="Testimonials from clients I've had the pleasure of working with"
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
