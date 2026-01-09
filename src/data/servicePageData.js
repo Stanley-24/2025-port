@@ -16,7 +16,7 @@ export const services = [
   {
     title: "Ecommerce Platforms",
     description: "Fast online shops with Paystack or Flutterwave payment integration, tracking – scale like ChowDeck.",
-    price: "400000",
+    price: "800000",
     displayPrice: "₦800K",
     cta: "Launch Store"
   },
