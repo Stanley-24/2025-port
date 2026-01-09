@@ -13,9 +13,9 @@ const Testimonials = () => {
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-        {testimonials.map((testimonial, index) => (
+        {testimonials.map((testimonial) => (
           <Card 
-            key={index} 
+            key={testimonial.name}
             className="bg-dark-bg border-t-0 border-b-0 transition-all duration-300 shadow-lg hover:border-t-2"
           >
             <CardContent className="p-8 relative">
@@ -30,9 +30,17 @@ const Testimonials = () => {
               <div className="flex items-center mt-8 gap-4">
                 {/* Avatar */}
                 <Avatar className="w-14 h-14 border-2 border-goldmaize">
-                  <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                  {testimonial.avatar ? (
+                    <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                  ) : null}
                   <AvatarFallback className="bg-dark-lite text-goldmaize text-xl">
-                    {testimonial.name.split(' ').map(n => n[0]).join('')}
+                    {(testimonial.name ?? "")
+                      .trim()
+                      .split(/\s/)
+                      .filter(Boolean)
+                      .map((n) => n[0])
+                      .join("")
+                      .slice(0, 3)}
                   </AvatarFallback>
                 </Avatar>
                 
