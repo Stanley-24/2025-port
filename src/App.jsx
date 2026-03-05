@@ -5,12 +5,14 @@ import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Services from "./pages/Services";
 import PaymentResult from "./pages/PaymentResult";
+import RouteScrollHandler from "./components/RouteScrollHandler";
 
 
 function App() {
 
   return (
     <>
+      <RouteScrollHandler />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />

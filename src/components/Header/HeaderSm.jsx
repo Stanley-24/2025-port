@@ -62,9 +62,9 @@ const HeaderSm = ({isHomePage}) => {
                                 {
                                     isHomePage && 
                                     <>
-                                        <li><a href="#projects" className="text-white capitalize hover:text-goldmeat duration-100">projects</a></li>
+                                        <li><NavLink to="/#projects" className="text-white capitalize hover:text-goldmeat duration-100">projects</NavLink></li>
 
-                                        <li><a href="#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</a></li>
+                                        <li><NavLink to="/#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</NavLink></li>
                                     </>
                                 }
 

@@ -7,7 +7,7 @@ import SectionIntro from "../SectionIntro/SectionIntro";
 import CheckoutModal from '../Payment/CheckoutModal';
 
 // Update this to your actual scheduling link (e.g., Cal.com, Calendly, etc.)
-const MEETING_LINK = 'https://cal.com/stanley-owarieta-wcfe8m/discovery-call'; // ← Change to your real link
+const MEETING_LINK = 'https://cal.com/stanley-24/discovery-call'; // ← Change to your real link
 
 const ServiceList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
