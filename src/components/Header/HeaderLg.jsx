@@ -39,8 +39,8 @@ const HeaderLg = ({isHomePage}) => {
                     {
                         isHomePage && 
                         <>
-                            <a href="#projects" className="text-white capitalize hover:text-goldmaize duration-100">projects</a>
-                            <a href="#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</a>
+                            <NavLink to="/#projects" className="text-white capitalize hover:text-goldmaize duration-100">projects</NavLink>
+                            <NavLink to="/#contact" className="text-white capitalize hover:text-goldmeat duration-100">contact</NavLink>
                         </>
                     }
 

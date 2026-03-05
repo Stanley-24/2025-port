@@ -4,7 +4,7 @@ export const services = [
     description: "Integrate finance, stock, sales & HR – like Odoo but customized. Save time, cut errors, handle local taxes.",
     price: "3500000", // Raw number in kobo (or use string and parse)
     displayPrice: "₦3.5M",
-    cta: "Get Quote"
+    cta: "Schedule Call"
   },
   {
     title: "Fintech & Blockchain Apps",

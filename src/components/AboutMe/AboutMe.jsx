@@ -30,7 +30,7 @@ const AboutMe = () => {
 
                     <button
                         className="text-white-shade bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-transparent duration-300 hover:border-purple hover:border-2"
-                        onClick={() => window.open("https://cal.com/stanley-owarieta-wcfe8m/10-mins-virtual-call", "_blank")}
+                        onClick={() => window.open("https://cal.com/stanley-24/10-mins-virtual-call", "_blank")}
                     >
                         Book a 10min call
                     </button>
