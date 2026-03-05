@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stanleyowarieta.com/sitemap.xml
