@@ -18,12 +18,12 @@ const Services = () => {
 
                 <meta
                 name="description"
-                content="Explore the web development services offered by Stanley Owarieta including website development, SaaS applications, frontend engineering, and modern digital product development."
+                content="Hire Stanley Owarieta, a Nigerian software developer helping startups and businesses build modern websites, SaaS platforms, and scalable web applications using React, JavaScript TypeScript and modern web technologies."
                 />
 
                 <meta
                 name="keywords"
-                content="web development services Nigeria, React developer services, frontend development services, software developer Nigeria, SaaS development services, digital product development Nigeria, Stanley Owarieta services, web app development services, scalable web applications Nigeria, modern web development services, software development services Nigeria, web development solutions Nigeria"
+                content="hire web developer Nigeria, React developer Nigeria, SaaS frontend developer, custom website developer Nigeria hire backend developer Nigeria, full-stack developer Nigeria, web application developer Nigeria, software developer Nigeria, freelance web developer Nigeria"
                 />
 
                 <link rel="canonical" href="https://stanleyowarieta.com/services" />
