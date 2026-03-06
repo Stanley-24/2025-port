@@ -18,7 +18,7 @@ const Services = () => {
 
                 <meta
                 name="description"
-                content="Hire Stanley Owarieta, a Nigerian software developer helping startups and businesses build modern websites, SaaS platforms, and scalable web applications using React, JavaScript TypeScript and modern web technologies."
+                content="Hire Stanley Owarieta, a Nigerian software developer helping startups and businesses build modern websites, SaaS platforms, and scalable web applications using React, JavaScript, TypeScript and modern web technologies."
                 />
 
                 <meta
