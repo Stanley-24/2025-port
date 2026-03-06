@@ -6,6 +6,7 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Services from "./pages/Services";
 import PaymentResult from "./pages/PaymentResult";
 import RouteScrollHandler from "./components/RouteScrollHandler";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
       </Routes>
 
       <ScrollToTop />
-    </>
+      <SpeedInsights />
+    </> 
   )
 }
 
