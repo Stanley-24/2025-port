@@ -30,54 +30,49 @@ const HomePage = () => {
                 <script type="application/ld+json">
                     {`
                         {
-                        "@context": "https://schema.org",
-                        "@type": "FAQPage",
-                        "mainEntity": [
+                            "@context": "https://schema.org",
+                            "@type": "FAQPage",
+                            "mainEntity": [
+                                {
+                                    "@type": "Question",
+                                    "name": "Who is Stanley Owarieta?",
+                                    "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Stanley Owarieta is a Nigerian Entrepreneur, founder and a software developer specializing in modern web applications, SaaS platforms, and full-stack development, from frontend design to backend security and data management to project deployment and smooth running."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": "What services does Stanley Owarieta offer?",
+                                    "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Stanley Owarieta offers web development services including website development, SaaS application development, full-stack engineering and business consultants for fellow founders and business owners."
+                                    }
+                                    },
+                                {
+                                    "@type": "Question",
+                                    "name": "Where is Stanley Owarieta based?",
+                                    "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Stanley Owarieta is based in Nigeria and works with startups and businesses globally."
+                                    }
+                                }
+                            ]
+                        }
                         {
-                        "@type": "Question",
-                        "name": "Who is Stanley Owarieta?",
-                        "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Stanley Owarieta is a Nigerian Entrepreneur, founder and a software developer specializing in modern web applications, SaaS platforms, and full-stack development, from frontend design to backend security and data management to project deployment and smooth running."
-                        }
-                        },
-                        {
-                        "@type": "Question",
-                        "name": "What services does Stanley Owarieta offer?",
-                        "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Stanley Owarieta offers web development services including website development, SaaS application development, full-stack engineering and business consultants for fellow founders and business owners."
-                        }
-                        },
-                        {
-                        "@type": "Question",
-                        "name": "Where is Stanley Owarieta based?",
-                        "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Stanley Owarieta is based in Nigeria and works with startups and businesses globally."
-                        }
-                        }
-                        ]
+                            "@context":"https://schema.org",
+                            "@type":"Person",
+                            "name":"Stanley Owarieta",
+                            "url":"https://stanleyowarieta.com",
+                            "jobTitle":"Software Developer",
+                            "sameAs": [
+                                "https://www.linkedin.com/in/stanley-owarieta",
+                                "https://x.com/Stanley_24_",
+                                "https://github.com/Stanley-24"
+                            ]
                         }
                     `}
-                    </script>
-
-                    <script type="application/ld+json">
-                        {`
-                            {
-                                "@context":"https://schema.org",
-                                "@type":"Person",
-                                "name":"Stanley Owarieta",
-                                "url":"https://stanleyowarieta.com",
-                                "jobTitle":"Software Developer",
-                                "sameAs": [
-                                    "https://www.linkedin.com/in/stanley-owarieta",
-                                    "https://x.com/Stanley_24_",
-                                    "https://github.com/Stanley-24"
-                                ]
-                            }
-                        `}
-                    </script>
+                 </script>
             </Helmet>
 
             <HeaderLg isHomePage={true} />
