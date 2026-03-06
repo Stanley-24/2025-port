@@ -38,7 +38,7 @@ const HomePage = () => {
                         "name": "Who is Stanley Owarieta?",
                         "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Stanley Owarieta is a Nigerian Entrepreneur, founder and a software developer specializing in modern web applications, SaaS platforms, and full-stack development, from frontend design to backend security and data management to project deployment and smooth running ."
+                        "text": "Stanley Owarieta is a Nigerian Entrepreneur, founder and a software developer specializing in modern web applications, SaaS platforms, and full-stack development, from frontend design to backend security and data management to project deployment and smooth running."
                         }
                         },
                         {
