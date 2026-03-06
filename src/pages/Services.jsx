@@ -23,7 +23,7 @@ const Services = () => {
 
                 <meta
                 name="keywords"
-                content="hire web developer Nigeria, React developer Nigeria, SaaS frontend developer, custom website developer Nigeria hire backend developer Nigeria, full-stack developer Nigeria, web application developer Nigeria, software developer Nigeria, freelance web developer Nigeria"
+                content="hire web developer Nigeria, React developer Nigeria, SaaS frontend developer, custom website developer Nigeria, hire backend developer Nigeria, full-stack developer Nigeria, web application developer Nigeria, software developer Nigeria, freelance web developer Nigeria"
                 />
 
                 <link rel="canonical" href="https://stanleyowarieta.com/services" />
