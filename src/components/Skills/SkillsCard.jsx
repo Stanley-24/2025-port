@@ -7,9 +7,9 @@ const SkillsCard = ({ icon: Icon, skillName, index }) => {
                 <Icon className="text-white-shade text-3xl lg:text-4xl" />
             </span>
 
-            <h4 className="text-white-shade/85 font-bold">
+            <h3 className="text-white-shade/85 font-bold">
                 {skillName}
-            </h4>
+            </h3>
         </div>
     )
 }

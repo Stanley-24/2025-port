@@ -1,7 +1,7 @@
-import salesFunnel from "../assets/salesFunnel.png";
-import rentalwave from "../assets/rental-wave.png";
-import natureimg from "../assets/nature-ent.png";
-import photoPilot from "../assets/photoPilot.png";
+import salesFunnel from "../assets/salesFunnel.webp";
+import rentalwave from "../assets/rental-wave.webp";
+import natureimg from "../assets/nature-ent.webp";
+import photoPilot from "../assets/photoPilot.webp";
 
 const projectsData = [
     {

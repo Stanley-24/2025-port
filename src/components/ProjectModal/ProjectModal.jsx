@@ -35,6 +35,7 @@ const ProjectModal = ({project, onClose}) => {
                     <button 
                         onClick={onClose}
                         className="border border-white/20 hover:border-goldmeat/40 w-8 h-8 rounded-full flex justify-center items-center cursor-pointer text-white-shade/40 hover:text-white-shade/70 duration-200"
+                        aria-label="Close Modal"
                     >
                         <IoMdClose className="text-lg" />
                     </button>

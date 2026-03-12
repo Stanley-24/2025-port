@@ -1,4 +1,4 @@
-import StanleyOwarietaPic from "../../assets/stan-pic.jpg";
+import StanleyOwarietaPic from "../../assets/stan-pic.webp";
 import { motion } from "motion/react" // eslint-disable-line no-unused-vars
 const Hero = () => {
     return (
@@ -7,7 +7,9 @@ const Hero = () => {
                 <img 
                     src={StanleyOwarietaPic} 
                     alt="Stanley Owarieta's picture" 
-                    className="w-full h-full object-cover relative top-4"
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover"
                 />
             </div>
 
@@ -34,7 +36,7 @@ const Hero = () => {
                     href="https://tinyurl.com/owarieta"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gold text-white-shade py-3 lg:py-3.5 px-10 rounded-full font-semibold capitalize flex gap-2 items-center justify-center w-full text-center min-[450px]:w-fit hover:scale-105 duration-300 transition ease-in-out hover:border-2 hover:border-purple hover:bg-transparent"
+                    className="bg-gold text-black hover:text-white py-3 lg:py-3.5 px-10 rounded-full font-semibold capitalize flex gap-2 items-center justify-center w-full text-center min-[450px]:w-fit hover:scale-105 duration-300 transition ease-in-out hover:border-2 hover:border-purple hover:bg-transparent"
                     aria-label="Button to view CV in hero section"
                     aria-description="button to view CV of Stanley Owarieta"
                 >
@@ -42,7 +44,7 @@ const Hero = () => {
                 </a>
 
                 <a 
-                    href="#projects"
+                    href="/#projects"
                     className="border-2 border-b-goldmeat text-gold rounded-full font-semibold capitalize inline-block w-full text-center py-3 lg:py-3.5 px-10 min-[450px]:w-fit sm:py-2  transition hover:bg-purple hover:text-white-shade duration-300"
                     aria-label="Button to view projects in hero section"
                     aria-description="button to navigate to projects section of the webpage"

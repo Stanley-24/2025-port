@@ -68,7 +68,9 @@ const ServiceList = () => {
                       handleScheduleClick();
                     }
                   }}
-                  className="mt-4 bg-gold hover:bg-purple "
+                  className="mt-4 bg-gold hover:bg-purple text-black hover:text-white-shade "
+                  aria-label={payable ? `Pay for ${service.title}` : `Schedule a call for ${service.title}`}
+                  aria-description={payable ? `button to open payment modal for ${service.title}` : `button to open scheduling link for ${service.title}`}
                 >
                   {service.cta}
                 </Button>

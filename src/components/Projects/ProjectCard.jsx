@@ -1,5 +1,6 @@
 import { LuSquareArrowOutUpRight } from "react-icons/lu";
-import { FaGithub, FaHourglassHalf } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { FaHourglassHalf } from "react-icons/fa";
 
 const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, codeUrl, isLive, onClick}) => {
     return (
@@ -8,7 +9,14 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
             onClick={onClick}
         >
             <div className="h-40 overflow-hidden ">
-                <img src={imgUrl} alt={imgAltText} className="w-full h-full object-cover " />
+                <img 
+                    src={imgUrl}
+                    loading="lazy"
+                    height={501}
+                    width={807}
+                    decoding="async"
+                    alt={imgAltText} 
+                    className="w-full h-full object-cover " />
             </div>
 
             <div className="px-4 lg:px-6 flex flex-col gap-4 py-6">
@@ -45,6 +53,7 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
+                                aria-label={`View ${title} live project`}
                             > 
                                 <LuSquareArrowOutUpRight className="text-white-shade text-xl duration-200 group-hover:text-white-shade/80" /> 
                                 Live 
@@ -56,6 +65,7 @@ const ProjectCard = ({imgUrl, imgAltText, title, description, tools, liveUrl, co
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
+                                aria-label={`View ${title} code on GitHub`}
                             > 
                                 <FaGithub className="text-white-shade duration-200 group-hover:text-white-shade/80" /> 
                                 code 

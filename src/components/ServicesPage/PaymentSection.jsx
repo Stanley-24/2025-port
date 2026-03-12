@@ -15,10 +15,12 @@ const PaymentSection = () => {
                 </p>
                 <Button 
                     size="lg" 
-                    className="bg-gold hover:bg-purple text-white-shade text-lg px-10"
+                    className="bg-gold hover:bg-purple hover:text-white text-black text-lg px-10"
                     onClick={() =>
                         window.open("https://cal.com/stanley-24/discovery-call", "_blank", "noopener,noreferrer")
                     }
+                    aria-label="Button to book a discovery call"
+                    aria-description="button to open cal.com and book a discovery call"
                 >
                     Start Your Project Today
                 </Button>

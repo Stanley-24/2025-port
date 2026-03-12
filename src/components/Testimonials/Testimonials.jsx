@@ -31,7 +31,11 @@ const Testimonials = () => {
                 {/* Avatar */}
                 <Avatar className="w-14 h-14 border-2 border-goldmaize">
                   {testimonial.avatar ? (
-                    <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                    <AvatarImage 
+                      src={testimonial.avatar} 
+                      alt={testimonial.name} 
+                      className="object-cover"
+                      />
                   ) : null}
                   <AvatarFallback className="bg-dark-lite text-goldmaize text-xl">
                     {(testimonial.name ?? "")

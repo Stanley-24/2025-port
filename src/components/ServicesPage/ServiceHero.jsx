@@ -13,7 +13,7 @@ const ServiceHero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                     size="lg" 
-                    className="bg-gold text-white-shade text-1xl hover:bg-purple hover:text-white-shade"
+                    className="bg-gold text-black text-1xl hover:bg-purple hover:text-white-shade"
                     asChild
                 >
                     <a href="#services">Explore Services</a>
@@ -22,7 +22,9 @@ const ServiceHero = () => {
                     size="lg" 
                     variant="transparent" 
                     className="border-gold border-b-2 border-t-1 text-purple text-1xl hover:bg-purple hover:text-white-shade hover:border-purple"
-                    onClick={() => window.open("https://cal.com/stanley-24/discovery-call", "_blank")}
+                    onClick={() => window.open("https://cal.com/stanley-24/discovery-call", "_blank", "noopener,noreferrer")}
+                    aria-label="Button to book a discovery call"
+                    aria-description="button to open cal.com and book a discovery call"
                 >
                     Book a Discovery Call
                 </Button>
