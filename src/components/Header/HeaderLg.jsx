@@ -57,16 +57,16 @@ const HeaderLg = ({isHomePage}) => {
                 </nav>
 
                 <div className="flex gap-4">
-                    <a href="https://github.com/Stanley-24" target="_blank" aria-label="GitHub profile link"> 
+                    <a href="https://github.com/Stanley-24" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile link"> 
                         <FaGithub className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                         
                     </a>
 
-                    <a href="https://www.linkedin.com/in/stanley-owarieta/" target="_blank" aria-label="LinkedIn profile link"> 
+                    <a href="https://www.linkedin.com/in/stanley-owarieta/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile link"> 
                         <FaLinkedin className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                     </a>
 
-                    <a href="https://x.com/Stanley_24_" target="_blank" aria-label="X profile link"> 
+                    <a href="https://x.com/Stanley_24_" target="_blank" rel="noopener noreferrer" aria-label="X profile link"> 
                         <FaX className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                     </a>
                 </div>
