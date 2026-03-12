@@ -1,4 +1,4 @@
-import myPic from "../../assets/stan-abt.jpeg";
+import myPic from "../../assets/stan-abt.webp";
 import { CiUser } from "react-icons/ci";
 import BackendSkillsItem from "./BackendSkillItem";
 import backendSkillsData from "../../data/backendSkillsData";
@@ -20,17 +20,19 @@ const AboutMe = () => {
                         />
                     </div>
 
-                    <h4 className="text-white-shade amatic-sc-regular flex items-center gap-2 self-center text-2xl">
+                    <h3 className="text-white-shade amatic-sc-regular flex items-center gap-2 self-center text-2xl">
                         <CiUser className="text-purple" /> Stanley Owarieta
-                    </h4>
+                    </h3>
 
                     <p className="text-white-shade/60 text-sm nunito-regular text-center">
                         Software Engineer @ Rental Wave
                     </p>
 
                     <button
-                        className="text-white-shade bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-transparent duration-300 hover:border-purple hover:border-2"
+                        className="text-black bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-transparent duration-300 hover:border-purple hover:text-white hover:border-2"
                         onClick={() => window.open("https://cal.com/stanley-24/10-mins-virtual-call", "_blank")}
+                        aria-label="Button to book a 10-minute discovery call"
+                        aria-description="button to open cal.com and book a 10-minute discovery call"
                     >
                         Book a 10min call
                     </button>
@@ -53,7 +55,7 @@ const AboutMe = () => {
                         My development journey has been driven by curiosity, consistent learning, and a passion for solving real-world problems. I began in frontend development with a drag and drop web builder, crafting intuitive and responsive user interfaces, and gradually transitioned into writing of codes and switching to backend engineering—where I now specialize in designing and maintaining reliable APIs and server-side systems.
                     </p>
 
-                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Backend Expertise</h4>
+                    <h3 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Backend Expertise</h3>
 
                     <p className="leading-7">
                         I have experience building and maintaining production-ready systems with a strong emphasis on performance, security, and maintainability, including:
@@ -65,7 +67,7 @@ const AboutMe = () => {
                         ))}
                     </ul>
 
-                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Technologies</h4>
+                    <h3 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Technologies</h3>
 
                     <p className="leading-7">
                         I currently work with and continue to deepen my expertise in:
@@ -81,7 +83,7 @@ const AboutMe = () => {
                         In 2026, my focus is on mastering backend engineering best practices and system design while building robust, scalable APIs that meet real business needs.
                     </p>
 
-                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">How I Work</h4>
+                    <h3 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">How I Work</h3>
 
                     <p className="leading-7">
                         I’m highly practical in my approach—what I learn, I apply immediately to real projects. I value clean code, clear communication, and collaboration, and I enjoy working in teams that care about quality and long-term impact.
@@ -91,13 +93,13 @@ const AboutMe = () => {
                         Beyond technical contributions, I’m passionate about mentorship and knowledge sharing, supporting junior developers, and fostering environments where people grow together.
                     </p>
 
-                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Interests & Personality</h4>
+                    <h3 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Interests & Personality</h3>
 
                     <p className="leading-7">
                         Outside of coding, I enjoy mobile games, table tennis, soccer, instrumental music, reading, drawing, technology, sports cars, and fashion. These interests help keep me balanced, creative, and energized.
                     </p>
 
-                    <h4 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Current Work & Opportunities</h4>
+                    <h3 className="text-white-shade jetbrains-mono-bold font-bold sm:text-md lg:text-lg">Current Work & Opportunities</h3>
 
                     <p className="leading-7">
                         I’m currently building the future at RentalWave and am open to full-time roles, contract work, and freelance opportunities where I can contribute meaningfully and grow with a strong team.
@@ -117,7 +119,7 @@ const AboutMe = () => {
                 </div>
 
                 <a
-                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-white-shade font-semibold tracking-wide lg:text-lg hover:bg-transparent hover:border-2 hover:border-purple duration-200 cursor-pointer active:scale-95 max-w-[170px] mx-auto mt-10"
+                    className="flex items-center gap-2 bg-gold py-3 justify-center rounded-full text-black font-semibold tracking-wide lg:text-lg hover:bg-transparent hover:border-2 hover:border-purple hover:text-white duration-200 cursor-pointer active:scale-95 max-w-[170px] mx-auto mt-10"
                     href="https://tinyurl.com/owarieta"
                     target="_blank"
                     rel="noopener noreferrer"

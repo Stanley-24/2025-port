@@ -1,6 +1,6 @@
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
-import { IoMdMail } from "react-icons/io";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const HeaderLg = ({isHomePage}) => {
@@ -57,15 +57,16 @@ const HeaderLg = ({isHomePage}) => {
                 </nav>
 
                 <div className="flex gap-4">
-                    <a href="https://github.com/Stanley-24" target="_blank"> 
+                    <a href="https://github.com/Stanley-24" target="_blank" aria-label="GitHub profile link"> 
                         <FaGithub className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
+                        
                     </a>
 
-                    <a href="https://www.linkedin.com/in/stanley-owarieta/" target="_blank"> 
+                    <a href="https://www.linkedin.com/in/stanley-owarieta/" target="_blank" aria-label="LinkedIn profile link"> 
                         <FaLinkedin className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                     </a>
 
-                    <a href="https://x.com/Stanley_24_" target="_blank"> 
+                    <a href="https://x.com/Stanley_24_" target="_blank" aria-label="X profile link"> 
                         <FaX className="text-lite-gray/80 text-xl hover:text-goldmeat duration-100" /> 
                     </a>
                 </div>
