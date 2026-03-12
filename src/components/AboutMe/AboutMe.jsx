@@ -29,7 +29,8 @@ const AboutMe = () => {
                     </p>
 
                     <button
-                        className="text-black bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full hover:bg-transparent duration-300 hover:border-purple hover:text-white hover:border-2"
+                        className="text-black bg-gold inline-block w-55 text-1xl my-3 py-2 px-8 text-center capitalize rounded-full border-2 border-transparent hover:bg-transparent duration-300 hover:border-purple hover:text-white"
+
                         onClick={() => window.open("https://cal.com/stanley-24/10-mins-virtual-call", "_blank")}
                         aria-label="Button to book a 10-minute discovery call"
                         aria-description="button to open cal.com and book a 10-minute discovery call"

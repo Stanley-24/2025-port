@@ -4,17 +4,17 @@
 
   <head>
     <script>
-      window.addEventListener("load", () => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", "G-5GQV04520T");
+
+      window.addEventListener("DOMContentLoaded", () => {
         const script = document.createElement("script");
         script.src = "https://www.googletagmanager.com/gtag/js?id=G-5GQV04520T";
-        script.defer = true;  // defer instead of async to run after parsing
+        script.async = true;
         document.head.appendChild(script);
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-5GQV04520T');
       });
     </script>
     
