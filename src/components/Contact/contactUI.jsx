@@ -111,7 +111,7 @@ const ContactUi = ({ formData, fieldErrors, isSending, onChange, onSubmit }) => 
         <button
           type="submit"
           disabled={isSending}
-          className="flex items-center gap-2 bg-gold justify-center rounded-full text-black font-semibold tracking-wide lg:text-lg hover:bg-transparent hover:border-purple hover:text-white hover:border-2 duration-200 cursor-pointer active:scale-95 max-w-300 mx-auto py-2 px-6 disabled:opacity-70"
+          className="flex items-center gap-2 bg-gold justify-center rounded-full text-black font-semibold tracking-wide lg:text-lg hover:bg-transparent hover:border-purple hover:text-white hover:border-2 duration-200 cursor-pointer active:scale-95 max-w-[300px] mx-auto py-2 px-6 disabled:opacity-70"
         >
           <BsCursorFill />
           {isSending ? "Sending..." : "Send Message"}
