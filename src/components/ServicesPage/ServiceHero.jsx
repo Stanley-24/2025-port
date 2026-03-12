@@ -22,7 +22,7 @@ const ServiceHero = () => {
                     size="lg" 
                     variant="transparent" 
                     className="border-gold border-b-2 border-t-1 text-purple text-1xl hover:bg-purple hover:text-white-shade hover:border-purple"
-                    onClick={() => window.open("https://cal.com/stanley-24/discovery-call", "_blank")}
+                    onClick={() => window.open("https://cal.com/stanley-24/discovery-call", "_blank", "noopener,noreferrer")}
                     aria-label="Button to book a discovery call"
                     aria-description="button to open cal.com and book a discovery call"
                 >
