@@ -57,7 +57,7 @@ const PipelineLanding = () => {
 
             {/* --- HERO SECTION --- */}
             <section className="relative pt-15 pb-12 px-4 flex flex-col items-center text-center border-b border-white/5">
-                <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-goldmaize/30 to-transparent" />
+                <div className="absolute top-0 w-full h-[1px] bg-linear-to-r from-transparent via-goldmaize/30 to-transparent" />
                 
                 <div className="inline-block px-4 py-1 border border-goldmaize/40 mb-8">
                     <span className="uppercase tracking-[0.5em] text-goldmaize text-[10px] font-bold">
@@ -83,8 +83,10 @@ const PipelineLanding = () => {
                         font-black rounded-none 
                         transition-all duration-500 
                         shadow-[0_10px_40px_rgba(212,175,55,0.2)] 
-                        whitespace-normal break-words text-center"
-                        onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
+                        whitespace-normal wrap-break-words text-center"
+                        onClick={() =>
+                          window.open("https://cal.com/stanley-24/discovery-call", "_blank", "noopener,noreferrer")
+                        }
                         aria-label="Book a discovery call to install your revenue retention infrastructure"
                         aria-describedby="discovery-call-help"
                     >
