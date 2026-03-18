@@ -20,26 +20,29 @@ const PipelineLanding = () => {
         const total = tickets * price;
         const low = total * 0.1;
         const high = total * 0.15;
-        // Reset to 0 before animating
+
         setDisplayRevenue(0);
         setDisplayLossLow(0);
         setDisplayLossHigh(0);
+
         let start = 0;
         const duration = 800;
         const stepTime = 20;
         const steps = duration / stepTime;
+
         const incrementRevenue = total / steps;
         const incrementLow = low / steps;
         const incrementHigh = high / steps;
+
         const interval = setInterval(() => {
             start++;
             setDisplayRevenue(Math.min(start * incrementRevenue, total));
             setDisplayLossLow(Math.min(start * incrementLow, low));
             setDisplayLossHigh(Math.min(start * incrementHigh, high));
-            if (start >= steps) {
-                clearInterval(interval);
-            }
+
+            if (start >= steps) clearInterval(interval);
         }, stepTime);
+
         return () => clearInterval(interval);
     }, [tickets, price]);
 
@@ -64,7 +67,7 @@ const PipelineLanding = () => {
                 
                 <h1 className="serif-heading text-5xl md:text-7xl lg:text-8xl mb-8 leading-[1.1] max-w-6xl tracking-tight">
                     Stop Giving Away Your Revenue. <br />
-                    <span className="italic text-goldmaize">Start Owning Your System.</span>
+                    <span className="text-goldmaize">Start Owning Your System.</span>
                 </h1>
 
                 <p className="montserrat-regular text-lite-gray max-w-3xl text-lg lg:text-xl mb-12 leading-relaxed">
@@ -74,7 +77,13 @@ const PipelineLanding = () => {
                 <div className="flex flex-col gap-6 items-center">
                     <Button 
                         size="lg"
-                        className="bg-goldmaize hover:bg-white text-black cursor-pointer px-16 py-8 text-xl font-black rounded-none transition-all duration-500 shadow-[0_10px_40px_rgba(212,175,55,0.2)]"
+                        className="bg-goldmaize hover:bg-white text-black cursor-pointer 
+                        px-6 md:px-16 py-5 md:py-8 
+                        text-base md:text-xl 
+                        font-black rounded-none 
+                        transition-all duration-500 
+                        shadow-[0_10px_40px_rgba(212,175,55,0.2)] 
+                        whitespace-normal break-words text-center"
                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
                         aria-label="Book a discovery call to install your revenue retention infrastructure"
                         aria-describedby="Clicking this button will open a new tab to schedule a discovery call for installing your revenue retention infrastructure, which is priced at ₦649,989."
@@ -92,7 +101,6 @@ const PipelineLanding = () => {
                 <div className="container max-w-7xl px-4 mx-auto">
                     <div className="flex flex-col lg:flex-row gap-16 items-center lg:items-start">
                         
-                        {/* Left Image */}
                         <div className="relative group w-full lg:w-[40%] max-w-md mx-auto lg:mx-0">
                             <div className="absolute -inset-4 border border-goldmaize/20 translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700" />
                             
@@ -109,10 +117,9 @@ const PipelineLanding = () => {
                             </div>
                         </div>
 
-                        {/* Right Description */}
                         <div className="flex flex-col justify-center w-full lg:w-[60%]">
                             <h2 className="serif-heading text-4xl lg:text-6xl mb-8 text-white leading-tight">
-                                The <span className="text-goldmaize italic">Revenue Retention</span> <br/> 
+                                The <span className="text-goldmaize">Revenue Retention</span> <br/> 
                                 Infrastructure Package
                             </h2>
                             
@@ -148,8 +155,6 @@ const PipelineLanding = () => {
                                     <Button 
                                         className="bg-white text-black hover:bg-goldmaize cursor-pointer w-full py-8 text-xl font-black rounded-none transition-colors"
                                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
-                                        aria-label="Book a discovery call to claim your revenue retention system"
-                                        aria-describedby="Clicking this button will open a new tab to schedule a discovery call for claiming your revenue retention system, which is priced at ₦649,989."
                                     >
                                         CLAIM YOUR SYSTEM
                                     </Button>
@@ -205,45 +210,58 @@ const PipelineLanding = () => {
 
                     {tickets > 0 && price > 0 && (
                         <div className="mt-8 pt-6 border-t border-white/10">
-                            <p className="text-white/60 text-sm uppercase tracking-widest mb-2">Break-even Insight</p>
-                            <h4 className="text-2xl font-black text-white mb-2">
-                                You recover this in{" "}
+                            <p className="text-white/60 text-sm uppercase tracking-widest mb-2">
+                                Break-even
+                            </p>
+
+                            <h4 className="text-2xl font-black text-white mb-2 leading-tight">
+                                ₦649,989 recovered in{" "}
                                 <span className="text-goldmaize">
                                     {Math.ceil(649989 / (tickets * price * 0.1))}
                                 </span>{" "}
                                 event(s)
                             </h4>
+
                             <p className="text-white/50 text-sm">
-                                After that, every event becomes pure retained profit.
+                                After that, the 10–15% you used to lose stays with you.
                             </p>
+
                             <p className="mt-6 text-red-400 text-sm font-bold animate-pulse">
-                                Every event you delay = more money lost to platforms.
+                                Delay = continued loss per event
                             </p>
                         </div>
                     )}
                 </div>
             </section>
 
-            {/* --- STRATEGIC INVESTMENT (ACCORDION) --- */}
+            {/* --- STRATEGIC INVESTMENT --- */}
             <section className="py-14 container max-w-4xl px-4 mx-auto">
                 <h2 className="serif-heading text-3xl mb-12 text-center uppercase tracking-[0.2em] text-goldmaize">Strategic Investment</h2>
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1" className="border-white/10">
-                        <AccordionTrigger className="text-xl hover:text-goldmaize montserrat-bold py-6 italic text-left">Not a SaaS Model</AccordionTrigger>
+                        <AccordionTrigger className="text-xl hover:text-goldmaize montserrat-bold py-6 text-left">
+                            Not a SaaS Model
+                        </AccordionTrigger>
                         <AccordionContent className="text-lite-gray text-lg py-4 leading-relaxed">
-                            This is an <span className="font-bold">Asset</span>, not a subscription. You get the code, the dashboard, and the rails permanently. No monthly fees. No revenue cuts. Your business, your rules.
+                            This is an <span className="font-bold">Asset</span>, not a subscription.
                         </AccordionContent>
                     </AccordionItem>
+
                     <AccordionItem value="item-2" className="border-white/10">
-                        <AccordionTrigger className="text-xl hover:text-goldmaize montserrat-bold py-6 italic text-left">Delivery Timeline</AccordionTrigger>
+                        <AccordionTrigger className="text-xl hover:text-goldmaize montserrat-bold py-6 text-left">
+                            Delivery Timeline
+                        </AccordionTrigger>
                         <AccordionContent className="text-lite-gray text-lg py-4 leading-relaxed">
-                            Your system will be fully functional in 4–6 weeks. Our modular workflow ensures core revenue features are live first.
+                            Your system will be fully functional in 4–6 weeks.
                         </AccordionContent>
                     </AccordionItem>
+
                     <AccordionItem value="item-3" className="border-white/10">
-                        <AccordionTrigger className="text-xl hover:text-goldmaize montserrat-bold py-6 italic text-left">Payment Terms</AccordionTrigger>
+                        <AccordionTrigger className="text-xl hover:text-goldmaize montserrat-bold py-6 text-left">
+                            Payment Terms
+                        </AccordionTrigger>
                         <AccordionContent className="text-lite-gray text-lg py-4 leading-relaxed">
-                            50% upfront guarantees your slot. The remaining 50% is due only after final approval and hand-over.
+                            50% upfront guarantees your slot.
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
@@ -257,13 +275,11 @@ const PipelineLanding = () => {
                     </h2>
                     <p className="montserrat-bold text-xl mb-12 opacity-80 uppercase tracking-widest">
                         Only 3 clients per month are accepted to maintain quality. <br/>
-                        Current Availability: <span className="underline italic">1 Slot Left for March 2026.</span>
+                        Current Availability: <span className="underline">1 Slot Left for March 2026.</span>
                     </p>
                     <Button 
-                        className="bg-white text-black hover:bg-gray-700 hover:text-amaericagold cursor-pointer w-full py-8 text-xl font-black rounded-none transition-colors"
+                        className="bg-white text-black hover:bg-gray-700 cursor-pointer py-8 text-xl font-black rounded-none transition-colors"
                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
-                        aria-label="Book a discovery call to secure your revenue retention infrastructure"
-                        aria-describedby="Clicking this button will open a new tab to schedule a discovery call for securing your revenue retention infrastructure, which is priced at ₦649,989."
                     >
                         SECURE YOUR REVENUE ENGINE
                     </Button>
@@ -276,3 +292,7 @@ const PipelineLanding = () => {
 };
 
 export default PipelineLanding;
+
+
+
+
