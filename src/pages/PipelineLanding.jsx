@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import HeaderLg from "../components/Header/HeaderLg";
 import FooterComponent from "../components/Footer/new-footer";
+import productMockup from '../assets/product-mockup.webp';
 
 const PipelineLanding = () => {
     // --- Calculator state ---
@@ -97,7 +98,7 @@ const PipelineLanding = () => {
                             
                             <div className="relative bg-[#111] border border-white/10 p-2 shadow-2xl overflow-hidden">
                                 <img 
-                                    src="/src/assets/product-mockup.webp" 
+                                    src={productMockup} 
                                     alt="Revenue Retention System Dashboard" 
                                     className="w-full h-auto grayscale-[30%] hover:grayscale-0 transition-all duration-1000 object-cover"
                                 />
