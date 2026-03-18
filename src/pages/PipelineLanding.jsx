@@ -86,10 +86,13 @@ const PipelineLanding = () => {
                         whitespace-normal break-words text-center"
                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
                         aria-label="Book a discovery call to install your revenue retention infrastructure"
-                        aria-describedby="Clicking this button will open a new tab to schedule a discovery call for installing your revenue retention infrastructure, which is priced at ₦649,989."
+                        aria-describedby="discovery-call-help"
                     >
                         INSTALL YOUR ENGINE — ₦649,989
                     </Button>
+                    <p id="discovery-call-help" className="sr-only">
+                        Clicking this button opens a new tab to schedule a discovery call for installing your revenue retention infrastructure, priced at ₦649,989.
+                    </p>
                     <p className="text-sm mt-4 uppercase tracking-widest font-bold animate-pulse text-white/70">
                         ⚠️ Every ticket sold through 3rd party platforms = revenue lost in real time
                     </p>
