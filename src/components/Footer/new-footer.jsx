@@ -49,7 +49,7 @@ const FooterComponent = () => {
               <FooterTitle title="Product" className="text-white" />
               <FooterLinkGroup col>
                 <FooterLink href="/revenue-retention-infrastructure">Revenue Retention Infrastructure</FooterLink>
-                <FooterLink href="#">Automations</FooterLink>
+                {/*<FooterLink href="#">Automations</FooterLink>*/}
               </FooterLinkGroup>
             </div>
 
@@ -67,8 +67,8 @@ const FooterComponent = () => {
             <div>
               <FooterTitle title="Legal" className="text-white" />
               <FooterLinkGroup col>
-                <FooterLink href="#">Privacy Policy</FooterLink>
-                <FooterLink href="#">Terms & Conditions</FooterLink>
+                {/*<FooterLink href="#">Privacy Policy</FooterLink>*/}
+                {/*<FooterLink href="#">Terms & Conditions</FooterLink>*/}
               </FooterLinkGroup>
             </div>
           </div>

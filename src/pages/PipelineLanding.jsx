@@ -19,28 +19,26 @@ const PipelineLanding = () => {
         const total = tickets * price;
         const low = total * 0.1;
         const high = total * 0.15;
-
+        // Reset to 0 before animating
+        setDisplayRevenue(0);
+        setDisplayLossLow(0);
+        setDisplayLossHigh(0);
         let start = 0;
         const duration = 800;
         const stepTime = 20;
         const steps = duration / stepTime;
-
         const incrementRevenue = total / steps;
         const incrementLow = low / steps;
         const incrementHigh = high / steps;
-
         const interval = setInterval(() => {
             start++;
-
-            setDisplayRevenue(prev => Math.min(prev + incrementRevenue, total));
-            setDisplayLossLow(prev => Math.min(prev + incrementLow, low));
-            setDisplayLossHigh(prev => Math.min(prev + incrementHigh, high));
-
+            setDisplayRevenue(Math.min(start * incrementRevenue, total));
+            setDisplayLossLow(Math.min(start * incrementLow, low));
+            setDisplayLossHigh(Math.min(start * incrementHigh, high));
             if (start >= steps) {
                 clearInterval(interval);
             }
         }, stepTime);
-
         return () => clearInterval(interval);
     }, [tickets, price]);
 
@@ -78,7 +76,7 @@ const PipelineLanding = () => {
                         className="bg-goldmaize hover:bg-white text-black cursor-pointer px-16 py-8 text-xl font-black rounded-none transition-all duration-500 shadow-[0_10px_40px_rgba(212,175,55,0.2)]"
                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
                         aria-label="Book a discovery call to install your revenue retention infrastructure"
-                        aria-decription="Clicking this button will open a new tab to schedule a discovery call for installing the revenue retention infrastructure, which is priced at ₦649,989."
+                        aria-describedby="Clicking this button will open a new tab to schedule a discovery call for installing your revenue retention infrastructure, which is priced at ₦649,989."
                     >
                         INSTALL YOUR ENGINE — ₦649,989
                     </Button>
@@ -150,7 +148,7 @@ const PipelineLanding = () => {
                                         className="bg-white text-black hover:bg-goldmaize cursor-pointer w-full py-8 text-xl font-black rounded-none transition-colors"
                                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
                                         aria-label="Book a discovery call to claim your revenue retention system"
-                                        aria-description="Clicking this button will open a new tab to schedule a discovery call for claiming your revenue retention system, which is priced at ₦649,989."
+                                        aria-describedby="Clicking this button will open a new tab to schedule a discovery call for claiming your revenue retention system, which is priced at ₦649,989."
                                     >
                                         CLAIM YOUR SYSTEM
                                     </Button>
@@ -264,7 +262,7 @@ const PipelineLanding = () => {
                         className="bg-white text-black hover:bg-gray-700 hover:text-amaericagold cursor-pointer w-full py-8 text-xl font-black rounded-none transition-colors"
                         onClick={() => window.open("https://cal.com/stanley-24/discovery-call")}
                         aria-label="Book a discovery call to secure your revenue retention infrastructure"
-                        aria-description="Clicking this button will open a new tab to schedule a discovery call for securing your revenue retention infrastructure, which is priced at ₦649,989."
+                        aria-describedby="Clicking this button will open a new tab to schedule a discovery call for securing your revenue retention infrastructure, which is priced at ₦649,989."
                     >
                         SECURE YOUR REVENUE ENGINE
                     </Button>

@@ -20,7 +20,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<Services />} />
         <Route path="/payment-success" element={<PaymentResult />} />
-        <Route path="/Revenue-retention-infrastructure" element={<PipelineLanding />} />
+        <Route path="/revenue-retention-infrastructure" element={<PipelineLanding />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
