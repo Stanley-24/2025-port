@@ -2,7 +2,6 @@ import { IoLogoJavascript } from "react-icons/io";
 import { FaReact, FaNodeJs, FaDocker, FaGitAlt, FaGithub, FaHtml5, FaCss3Alt, FaPython } from "react-icons/fa";
 import { SiExpress, SiTailwindcss, SiTypescript, SiFastapi } from "react-icons/si";
 import { BiLogoPostgresql, BiLogoMongodb } from "react-icons/bi";
-import { FaP, FaT } from "react-icons/fa6";
 
 const skillData = [
     {

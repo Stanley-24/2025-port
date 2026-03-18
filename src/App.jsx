@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import PaymentResult from "./pages/PaymentResult";
 import RouteScrollHandler from "./components/RouteScrollHandler";
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import PipelineLanding from "./pages/PipelineLanding";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<Services />} />
         <Route path="/payment-success" element={<PaymentResult />} />
+        <Route path="/revenue-retention-infrastructure" element={<PipelineLanding />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
