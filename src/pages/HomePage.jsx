@@ -5,7 +5,7 @@ import MyServices from "../components/MyServices/MyServices";
 import MySkills from "../components/Skills/Skills";
 import Projects from "../components/Projects/Projects";
 import Contact from "../components/Contact/Contact";
-import Footer from "../components/Footer/Footer";
+import FooterComponent from "../components/Footer/new-footer";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import { Helmet } from "react-helmet";
 
@@ -83,7 +83,7 @@ const HomePage = () => {
             <Projects />
             <Testimonials/>
             <Contact />
-            <Footer />
+            <FooterComponent />
         </>
     )
 }

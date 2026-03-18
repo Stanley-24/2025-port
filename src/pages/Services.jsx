@@ -6,7 +6,7 @@ import PricingSection from "../components/ServicesPage/PricingSection";
 import DeliverySection from "../components/ServicesPage/DeliverySection";
 import PaymentSection from "../components/ServicesPage/PaymentSection";
 import Contact from "../components/Contact/Contact";
-import Footer from "../components/Footer/Footer";
+import FooterComponent from "../components/Footer/new-footer";
 import Testimonials from '@/components/Testimonials/Testimonials';
 import { Helmet } from 'react-helmet';
 
@@ -37,7 +37,7 @@ const Services = () => {
             <PaymentSection />
             <Testimonials/>
             <Contact />
-            <Footer />
+            <FooterComponent />
         </>
     );
 };

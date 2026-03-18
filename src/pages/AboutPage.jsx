@@ -1,6 +1,6 @@
 import HeaderLg from "../components/Header/HeaderLg";
 import HeaderSm from "../components/Header/HeaderSm";
-import Footer from "../components/Footer/Footer";
+import FooterComponent from "../components/Footer/new-footer";
 import AboutMe from "../components/AboutMe/AboutMe";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import Contact from "@/components/Contact/Contact";
@@ -30,7 +30,7 @@ const AboutPage = () => {
             <AboutMe />
             <Testimonials/>
             <Contact />
-            <Footer />
+            <FooterComponent />
         </>
     )
 }

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
+
+
 @import "tailwindcss";
 
 /* Optional: Import animation plugin if you want smooth transitions (recommended for shadcn) */
@@ -5,6 +8,15 @@
 
 /* Dark mode variant – matches shadcn/ui default */
 @custom-variant dark (&:is(.dark *));
+
+
+
+
+.serif-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
 
 /* Your Custom Theme Variables – Tailwind v4 style */
 @theme {
