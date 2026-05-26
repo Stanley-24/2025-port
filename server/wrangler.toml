@@ -4,17 +4,23 @@ compatibility_date = "2024-10-22"
 compatibility_flags = [ "nodejs_compat" ]
 
 [vars]
+# Public, non-sensitive configuration
 FRONTEND_URL = "https://c560abfb.stanley-portfolio.pages.dev"
+SUPABASE_URL = "https://kcxeyusgtgblaihsasbd.supabase.co"
+AdminEmail = "owarieta24@gmail.com"
+SenderEmail = "no-reply@stanleyowarieta.com"
+PaymentLogo = "https://c560abfb.stanley-portfolio.pages.dev/stan-pic.webp"
 
-# Add secrets via: wrangler secret put <SECRET_NAME>
-# SUPABASE_URL
-# SUPABASE_ANON_KEY
-# RESEND_API_KEY
-# AdminEmail
-# SenderEmail
-# FLUTTERWAVE_PUBLIC_KEY
-# FLUTTERWAVE_SECRET_KEY
-# FLUTTERWAVE_ENCRYPTION_KEY
-# FLUTTERWAVE_WEBHOOK_SECRET
-# MEETING_LINK
-# PaymentLogo
+# Encrypted Secrets (stored in Cloudflare Workers Secret Manager)
+# Add via: npx wrangler secret put <SECRET_NAME>
+# 
+# Sensitive credentials to be provisioned:
+# - SUPABASE_SERVICE_ROLE_KEY (backend-only Supabase authentication)
+# - SUPABASE_ANON_KEY (public Supabase anon key)
+# - RESEND_API_KEY (email service API key)
+# - FLUTTERWAVE_PUBLIC_KEY (payment processor public key)
+# - FLUTTERWAVE_SECRET_KEY (payment processor secret key)
+# - FLUTTERWAVE_ENCRYPTION_KEY (payment encryption key)
+# - FLUTTERWAVE_WEBHOOK_SECRET (webhook authentication)
+# - REDIS_URL (Redis connection string with auth)
+# - MEETING_LINK (if sensitive)

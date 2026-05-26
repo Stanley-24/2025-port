@@ -1,4 +1,59 @@
 Markdown
+# Deployment Pipeline: Supabase Service-Role Auth + Cloudflare Edge Secret Architecture
+
+## Overview
+All sensitive backend environment variables are now securely stored in Cloudflare Workers Secrets (encrypted at rest) rather than cleartext configuration. Public, non-sensitive values remain in `wrangler.toml` as `[vars]`. This architecture ensures:
+
+- **Zero git exposure**: Credentials are never committed to version control
+- **Encrypted at edge**: Secrets are encrypted in Cloudflare's secure vault
+- **Runtime injection**: Secrets are injected into the worker context at runtime via `c.env.SECRET_NAME`
+
+## Provisioned Secrets
+
+The following sensitive credentials have been uploaded to Cloudflare Workers Secrets:
+
+| Secret Name | Purpose | Status |
+|---|---|---|
+| `SUPABASE_SERVICE_ROLE_KEY` | Backend Supabase authentication (admin operations) | ✅ Encrypted |
+| `SUPABASE_ANON_KEY` | Public Supabase client key | ✅ Encrypted |
+| `RESEND_API_KEY` | Email service API credentials | ✅ Encrypted |
+| `FLUTTERWAVE_PUBLIC_KEY` | Payment processor public key | ✅ Encrypted |
+| `FLUTTERWAVE_SECRET_KEY` | Payment processor secret key | ✅ Encrypted |
+| `FLUTTERWAVE_ENCRYPTION_KEY` | Payment encryption credentials | ✅ Encrypted |
+| `FLUTTERWAVE_WEBHOOK_SECRET` | Webhook authentication token | ✅ Encrypted |
+| `REDIS_URL` | Redis cache connection with auth | ✅ Encrypted |
+| `MEETING_LINK` | Post-payment meeting/booking URL injected into thank-you emails | ✅ Encrypted |
+
+## Public Configuration (wrangler.toml)
+
+```toml
+[vars]
+FRONTEND_URL = "https://c560abfb.stanley-portfolio.pages.dev"
+SUPABASE_URL = "https://kcxeyusgtgblaihsasbd.supabase.co"
+AdminEmail = "owarieta24@gmail.com"
+SenderEmail = "no-reply@stanleyowarieta.com"
+PaymentLogo = "https://c560abfb.stanley-portfolio.pages.dev/stan-pic.webp"
+```
+
+## Adding New Secrets
+
+To provision additional secrets, use the Wrangler CLI:
+
+```bash
+echo "your-secret-value" | npx wrangler secret put SECRET_NAME
+```
+
+## Accessing Secrets in Code
+
+Within Hono middleware and handlers, access secrets via the context object:
+
+```typescript
+const supabaseKey = c.env.SUPABASE_SERVICE_ROLE_KEY;
+const resendApiKey = c.env.RESEND_API_KEY;
+```
+
+---
+
 # Architectural Sync: Supabase Database Schema Alignment & Bug Fixes
 
 We are experiencing 500 Internal Server Errors because our TypeScript service layer properties do not match our Supabase PostgreSQL table structures. We need to unify our schemas and fix the rate limiter logic.
