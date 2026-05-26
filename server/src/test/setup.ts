@@ -14,16 +14,21 @@ mockedAxios.post.mockResolvedValue({
 
 // Mock @supabase/supabase-js globally
 jest.mock('@supabase/supabase-js', () => ({
-  createClient: jest.fn(() => ({
-    from: jest.fn(() => ({
+  createClient: jest.fn(() => {
+    const queryBuilder: any = {
       select: jest.fn().mockReturnThis(),
-      insert: jest.fn().mockResolvedValue({ data: [{ id: 'mock-id' }], error: null }),
+      insert: jest.fn().mockReturnThis(),
       update: jest.fn().mockReturnThis(),
       eq: jest.fn().mockReturnThis(),
-      gte: jest.fn().mockReturnThis(),
+      gte: jest.fn().mockResolvedValue({ count: 0, error: null }),
+      limit: jest.fn().mockReturnThis(),
       single: jest.fn().mockResolvedValue({ data: { id: 'mock-id' }, error: null }),
-    })),
-  })),
+    };
+
+    return {
+      from: jest.fn(() => queryBuilder),
+    };
+  }),
 }));
 
 // Mock resend createResendClient

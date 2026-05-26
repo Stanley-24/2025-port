@@ -1,0 +1,17 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping keep-alive route
+        run: |
+          curl --fail --show-error --silent \
+            -X POST "https://stanley-portfolio-server.owarieta24.workers.dev/api/v1/contact" \
+            -H "Content-Type: application/json" \
+            -d '{"ping":true}'

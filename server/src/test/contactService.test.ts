@@ -52,7 +52,7 @@ describe('ContactService', () => {
     };
 
     await expect(ContactService.processContactForm(invalid, mockEnv)).rejects.toMatchObject({
-      statusCode: 400,
+      status: 400,
     });
   });
 });
