@@ -98,3 +98,32 @@ Open src/services/paymentService.ts and inspect where it hits .insert() or .upda
 
 3. VERIFICATION STEP
 After making these changes, verify that the project builds correctly and monitor the incoming POST /api/v1/contact and POST /api/v1/payment/initiate routes to confirm they respond with 200 OK or 201 Created.
+
+---
+
+# Debugging Ledger: Production Network Fetch & CORS Alignment
+
+## Issue: Contact Form Network Failure (May 26, 2026)
+
+**Symptom:** Frontend contact form triggers "TypeError: Failed to fetch" when submitted from production.
+
+**Root Cause:** Frontend `.env` file hardcoded development endpoints:
+- `VITE_API_URL=http://localhost:8787/api/v1/contact` 
+- `VITE_payment_api=http://localhost:8787/api/v1/payment/initiate`
+
+These localhost URLs fail in production (cross-origin + unreachable server).
+
+**Resolution Applied:**
+✅ Updated `.env` to use live Cloudflare Worker domain:
+- `VITE_API_URL=https://stanley-portfolio-server.owarieta24.workers.dev/api/v1/contact`
+- `VITE_payment_api=https://stanley-portfolio-server.owarieta24.workers.dev/api/v1/payment/initiate`
+
+✅ Verified backend CORS middleware (server/src/index.ts):
+- CORS correctly positioned above route handlers
+- Origin validation uses `c.env.FRONTEND_URL` from wrangler.toml
+- Frontend URL points to production Vercel deployment: `https://c560abfb.stanley-portfolio.pages.dev`
+- Credentials flag enabled for cross-origin requests
+
+**Vercel Speed Insights Note:** 404 error for `/_vercel/speed-insights/script.js` is separate analytics issue (possibly ad-blocker or CDN fallback) and does not affect form submission functionality.
+
+**Status:** ✅ RESOLVED
