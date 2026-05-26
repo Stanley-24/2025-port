@@ -22,6 +22,7 @@ The following sensitive credentials have been uploaded to Cloudflare Workers Sec
 | `FLUTTERWAVE_ENCRYPTION_KEY` | Payment encryption credentials | ✅ Encrypted |
 | `FLUTTERWAVE_WEBHOOK_SECRET` | Webhook authentication token | ✅ Encrypted |
 | `REDIS_URL` | Redis cache connection with auth | ✅ Encrypted |
+| `MEETING_LINK` | Post-payment meeting/booking URL injected into thank-you emails | ✅ Encrypted |
 
 ## Public Configuration (wrangler.toml)
 
