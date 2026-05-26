@@ -1,0 +1,45 @@
+Markdown
+# Architectural Sync: Supabase Database Schema Alignment & Bug Fixes
+
+We are experiencing 500 Internal Server Errors because our TypeScript service layer properties do not match our Supabase PostgreSQL table structures. We need to unify our schemas and fix the rate limiter logic.
+
+## 1. DATABASE SCHEMA CORRECTIONS (Execute in Supabase SQL Editor First)
+Please ensure our Supabase Postgres tables support the columns our codebase expects. Run this migration script to synchronize the database structure:
+
+```sql
+-- Fix contact_messages table column names
+ALTER TABLE contact_messages ADD COLUMN IF NOT EXISTS full_name text;
+ALTER TABLE contact_messages ADD COLUMN IF NOT EXISTS phone_number text;
+
+-- Fix payments table column names
+ALTER TABLE payments ADD COLUMN IF NOT EXISTS balance_due numeric(10, 2) DEFAULT 0.00;
+ALTER TABLE payments ADD COLUMN IF NOT EXISTS amount_paid numeric(10, 2) DEFAULT 0.00;
+
+-- Fix rate_limit_log table schema for Hono Edge compatibility
+CREATE TABLE IF NOT EXISTS rate_limit_log (
+    id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+    client_key text NOT NULL,
+    tokens_used int DEFAULT 1,
+    last_request timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_rate_limit_client ON rate_limit_log(client_key);
+2. REFACTORING TASKS FOR THE AGENT
+Task A: Fix Rate Limiter Database Errors (src/middleware/rateLimiter.ts)
+The rate limiter is throwing Rate limiter DB error.
+
+Inspect how it interacts with Supabase. Ensure that when querying or updating rate_limit_log, it correctly uses c.env.SUPABASE_URL and c.env.SUPABASE_ANON_KEY or SUPABASE_SERVICE_ROLE_KEY.
+
+Wrap the rate limiter database calls inside a standard try/catch block. If it fails, log the error clearly but ensure it handles or gracefully defaults rather than cascading into a hard server crash if possible.
+
+Task B: Align Contact Form Service Column Mapping (src/services/contactService.ts)
+The error indicates: Could not find the 'full_name' column of 'contact_messages'.
+
+Open src/services/contactService.ts. Ensure that the object keys passed into .insert({...}) perfectly match the columns available in our Supabase table (name or full_name, email, subject, message). Adjust either the object layout or verify it maps to the updated database columns.
+
+Task C: Align Payment Intent Service Column Mapping (src/services/paymentService.ts)
+The error indicates: Could not find the 'balance_due' column of 'payments'.
+
+Open src/services/paymentService.ts and inspect where it hits .insert() or .update(). Ensure the values map cleanly to the updated database schemas (amount, balance_due, reference_id, etc.).
+
+3. VERIFICATION STEP
+After making these changes, verify that the project builds correctly and monitor the incoming POST /api/v1/contact and POST /api/v1/payment/initiate routes to confirm they respond with 200 OK or 201 Created.

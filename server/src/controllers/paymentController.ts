@@ -1,57 +1,47 @@
 // src/controllers/paymentController.ts
-
-import { Request, Response } from 'express';
+import type { Context } from 'hono';
+import type { Bindings } from '../configs/bindings';
 import { initiatePayment, handleWebhookEvent } from '../services/paymentService';
 import logger from '../lib/loggers';
-import config from '../configs/config';
-import axios from 'axios';
 import { timingSafeEqual } from '../lib/timingSafe';
+import axios from 'axios';
 
+type HonoCtx = Context<{ Bindings: Bindings }>;
 
-export const initiate = async (req: Request, res: Response) => {
+export const initiate = async (c: HonoCtx) => {
   try {
-    const result = await initiatePayment(req.body);
-    res.json({ success: true, ...result });
+    const body = await c.req.json();
+    const result = await initiatePayment(body, c.env);
+    return c.json({ success: true, ...result });
   } catch (error: any) {
     if (error.message?.includes('fields are required') || error.message?.includes('positive')) {
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+      return c.json({ success: false, message: error.message }, 400);
     }
     logger.error('Payment initiation failed', { error: error.message, stack: error.stack });
-    res.status(500).json({
-      success: false,
-      message: 'Failed to initiate payment',
-    });
+    return c.json({ success: false, message: 'Failed to initiate payment' }, 500);
   }
 };
 
-export const webhook = async (req: Request, res: Response) => {
-  const signature = req.headers['verif-hash'] as string | undefined;
+export const webhook = async (c: HonoCtx) => {
+  const signature = c.req.header('verif-hash');
 
-  // Security: Validate signature
-  if (!signature || !config.webhookSecret || !timingSafeEqual(signature, config.webhookSecret)) {
+  if (
+    !signature ||
+    !c.env.FLUTTERWAVE_WEBHOOK_SECRET ||
+    !timingSafeEqual(signature, c.env.FLUTTERWAVE_WEBHOOK_SECRET)
+  ) {
     logger.warn('Flutterwave webhook failed signature verification', {
       receivedSignature: signature ? '[redacted]' : 'missing',
-      ip: req.ip || req.socket.remoteAddress,
     });
-    return res.status(401).send('Unauthorized');
+    return c.text('Unauthorized', 401);
   }
 
   let payload: any;
   try {
-    // Handle raw body (from express.raw())
-    if (Buffer.isBuffer(req.body)) {
-      payload = JSON.parse(req.body.toString('utf8'));
-    } else if (req.body && typeof req.body === 'object') {
-      payload = req.body;
-    } else {
-      throw new Error('Invalid payload format');
-    }
+    payload = await c.req.json();
   } catch (parseError) {
     logger.error('Failed to parse webhook payload', { error: parseError });
-    return res.sendStatus(400);
+    return c.text('Bad Request', 400);
   }
 
   try {
@@ -69,9 +59,7 @@ export const webhook = async (req: Request, res: Response) => {
         const verifyResponse = await axios.get<any>(
           `https://api.flutterwave.com/v3/transactions/${txId}/verify`,
           {
-            headers: {
-              Authorization: `Bearer ${config.secretKey}`,
-            },
+            headers: { Authorization: `Bearer ${c.env.FLUTTERWAVE_SECRET_KEY}` },
             timeout: 8000,
           }
         );
@@ -82,29 +70,26 @@ export const webhook = async (req: Request, res: Response) => {
           verifiedData.status !== 'successful' ||
           verifiedData.tx_ref !== txRef
         ) {
-          logger.warn('Webhook passed signature but transaction verification failed', {
-            tx_ref: txRef,
-            verifiedStatus: verifiedData.status,
-          });
-          return res.sendStatus(200); 
+          logger.warn('Webhook: transaction verification failed', { tx_ref: txRef });
+          return c.text('OK', 200);
         }
       } catch (verifyError: any) {
         logger.error('Failed to verify transaction with Flutterwave', {
           tx_ref: txRef,
           error: verifyError.response?.data || verifyError.message,
         });
-        return res.sendStatus(200);
+        return c.text('OK', 200);
       }
     }
 
-    await handleWebhookEvent(payload);
-    res.sendStatus(200);
+    await handleWebhookEvent(payload, c.env);
+    return c.text('OK', 200);
   } catch (error: any) {
     logger.error('Webhook processing failed', {
       error: error.message,
       stack: error.stack,
-      tx_ref: payload.data?.tx_ref,
+      tx_ref: payload?.data?.tx_ref,
     });
-    res.sendStatus(200); 
+    return c.text('OK', 200);
   }
 };

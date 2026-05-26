@@ -1,7 +1,7 @@
-// src/test/jest.setup.ts
+// src/test/setup.ts
 import axios from 'axios';
 
-// Mock axios
+// Mock axios globally
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 mockedAxios.post.mockResolvedValue({
@@ -12,38 +12,25 @@ mockedAxios.post.mockResolvedValue({
   config: {} as any,
 });
 
-// Mock config
-jest.mock('../configs/config', () => ({
-  __esModule: true,
-  default: {
-    MONGO_URI: 'mongodb://localhost:27017/test',
-    REDIS_URL: 'redis://localhost:6379',
-    RESEND_API_KEY: 'test-resend-key',
-    AdminEmail: 'admin@test.com',
-    SenderEmail: 'no-reply@test.com',
-    PORT: '3000',
-    FRONTEND_URL: 'http://localhost:5173',
-    publicKey: 'FLWPUBK_TEST-fake',
-    secretKey: 'FLWSECK_TEST-fake',
-    encryptionKey: 'test-encryption-key',
-    webhookSecret: 'test-webhook-secret',
-    meetingLink: 'https://calendly.com/test',
-  },
+// Mock @supabase/supabase-js globally
+jest.mock('@supabase/supabase-js', () => ({
+  createClient: jest.fn(() => ({
+    from: jest.fn(() => ({
+      select: jest.fn().mockReturnThis(),
+      insert: jest.fn().mockResolvedValue({ data: [{ id: 'mock-id' }], error: null }),
+      update: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      gte: jest.fn().mockReturnThis(),
+      single: jest.fn().mockResolvedValue({ data: { id: 'mock-id' }, error: null }),
+    })),
+  })),
 }));
 
-// Mock resend
+// Mock resend createResendClient
 jest.mock('../configs/resend', () => ({
-  resend: {
+  createResendClient: jest.fn(() => ({
     emails: {
       send: jest.fn().mockResolvedValue({ id: 'mock-email-id' }),
     },
-  },
+  })),
 }));
-
-// Mock redis
-jest.mock('../configs/redis', () => ({
-  redisClient: new (require('ioredis-mock'))(),
-}));
-
-// Mock flutterwave-node-v3
-jest.mock('flutterwave-node-v3', () => jest.fn());

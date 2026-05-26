@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "nodenext",
+    "target": "ESNext",
+    "module": "ESNext",
     "jsx": "react-jsx",
+    "lib": ["ESNext"],
     "rootDir": "src",
     "outDir": "dist",
     "esModuleInterop": true,
     "strict": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["@cloudflare/workers-types", "node", "jest"]
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
