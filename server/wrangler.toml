@@ -1,0 +1,20 @@
+name = "stanley-portfolio-server"
+main = "src/index.ts"
+compatibility_date = "2024-10-22"
+compatibility_flags = [ "nodejs_compat" ]
+
+[vars]
+FRONTEND_URL = "https://c560abfb.stanley-portfolio.pages.dev"
+
+# Add secrets via: wrangler secret put <SECRET_NAME>
+# SUPABASE_URL
+# SUPABASE_ANON_KEY
+# RESEND_API_KEY
+# AdminEmail
+# SenderEmail
+# FLUTTERWAVE_PUBLIC_KEY
+# FLUTTERWAVE_SECRET_KEY
+# FLUTTERWAVE_ENCRYPTION_KEY
+# FLUTTERWAVE_WEBHOOK_SECRET
+# MEETING_LINK
+# PaymentLogo

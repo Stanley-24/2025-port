@@ -1,18 +1,18 @@
 // src/services/contactService.ts
-import { z } from 'zod'; // Import z for v4 helpers
-import ContactMessage from '../models/contactMessages';
+import { z } from 'zod';
+import { createClient } from '@supabase/supabase-js';
 import { sendContactNotification, sendConfirmationEmail } from './emailService';
 import { contactFormSchema } from '../lib/validation';
 import logger from '../lib/loggers';
 import { ValidationError } from '../lib/errors';
+import type { Bindings } from '../configs/bindings';
 
 export class ContactService {
-  static async processContactForm(data: unknown) {
-    // 1. Validate input using Zod v4 helper
+  static async processContactForm(data: unknown, env: Bindings) {
+    // 1. Validate
     const validation = contactFormSchema.safeParse(data);
-    
+
     if (!validation.success) {
-      // Zod v4: Use flattenError for better form handling
       const flattened = z.flattenError(validation.error);
       const fieldErrors = flattened.fieldErrors;
 
@@ -31,38 +31,39 @@ export class ContactService {
 
     const { fullName, email, subject, message } = validation.data;
 
-    // 2. Save to database
-    const newMessage = await ContactMessage.create({
-      fullName,
-      email,
-      subject,
-      message,
-    });
+    // 2. Save to Supabase
+    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+
+    const { data: newMessage, error: dbError } = await supabase
+      .from('contact_messages')
+      .insert({ full_name: fullName, email, subject, message })
+      .select('id')
+      .single();
+
+    if (dbError) {
+      logger.error('Failed to save contact message', { error: dbError.message });
+      throw new Error('Failed to save message');
+    }
 
     // 3. Send emails
     try {
-      // Admin Notification (Important)
-      await sendContactNotification({ fullName, email, subject, message });
+      await sendContactNotification({ fullName, email, subject, message }, env);
     } catch (emailError) {
       logger.error('Failed to send notification email, but message was saved', {
-        messageId: newMessage._id,
+        messageId: newMessage?.id,
         error: emailError,
       });
-      // We don't throw here so the user doesn't get a 500 error for a saved message
     }
 
-    // User Confirmation (Fire-and-forget)
-    sendConfirmationEmail({ fullName, email }).catch((emailError) => {
+    // User confirmation — fire-and-forget
+    sendConfirmationEmail({ fullName, email }, env).catch((emailError) => {
       logger.error('Failed to send confirmation email', {
-        messageId: newMessage._id,
+        messageId: newMessage?.id,
         error: emailError,
       });
     });
 
-    // 4. Log success
-    logger.info('Contact form processed successfully', {
-      messageId: newMessage._id,
-    });
+    logger.info('Contact form processed successfully', { messageId: newMessage?.id });
 
     return {
       success: true,

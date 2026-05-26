@@ -1,5 +1,5 @@
 export const resendMock = {
   emails: {
-    send: jest.fn().mockResolvedValue({ data: { id: '123' } }),
+    send: jest.fn().mockResolvedValue({ id: 'mock-email-id' }),
   },
 };

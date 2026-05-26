@@ -1,9 +1,8 @@
-import { Document } from 'mongoose';
-
-export interface IContactMessage extends Document {
+export interface IContactMessage {
+  id?: string;
   fullName: string;
   email: string;
   subject: string;
   message: string;
-  createdAt?: Date;
+  created_at?: string;
 }

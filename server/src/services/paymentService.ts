@@ -1,21 +1,25 @@
 import axios from 'axios';
-import Payment from '../models/Payment';
+import { createClient } from '@supabase/supabase-js';
 import logger from '../lib/loggers';
-import { resend } from '../configs/resend';
+import { createResendClient } from '../configs/resend';
 import { ImmediateThankYou } from '../emails/templates/ImmediateThankYou';
-import config from '../configs/config';
+import type { Bindings } from '../configs/bindings';
+import type { IPayment } from '../types/payment';
 
 /**
  * Initiate Flutterwave payment (deposit)
  */
-export const initiatePayment = async (data: {
-  fullName: string;
-  email: string;
-  service: string;
-  amount: number;
-  message?: string;
-  fullAmount?: number;
-}) => {
+export const initiatePayment = async (
+  data: {
+    fullName: string;
+    email: string;
+    service: string;
+    amount: number;
+    message?: string;
+    fullAmount?: number;
+  },
+  env: Bindings
+) => {
   const {
     fullName,
     email,
@@ -30,44 +34,46 @@ export const initiatePayment = async (data: {
   }
 
   const depositAmount = amount;
-  const fullAmount =
-    providedFull || Math.round(depositAmount / 0.7); 
+  const fullAmount = providedFull || Math.round(depositAmount / 0.7);
   const balanceDue = fullAmount - depositAmount;
+  const reference_id = `STAN-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
 
-  const tx_ref = `STAN-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
+  // Save payment intent to Supabase
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
-  // Save payment intent
-  const payment = new Payment({
-    tx_ref,
-    fullName,
-    email,
+  const { error: dbError } = await supabase.from('payments').insert({
+    reference_id,
+    customer_name: fullName,
+    customer_email: email,
     service,
     amount: depositAmount,
-    depositAmount,
-    fullAmount,
-    balanceDue,
+    deposit_amount: depositAmount,
+    full_amount: fullAmount,
+    balance_due: balanceDue,
     message,
+    currency: 'NGN',
     status: 'pending',
-    emailSent: false,
+    email_sent: false,
   });
 
-  await payment.save();
+
+  if (dbError) {
+    logger.error('Failed to save payment intent', { error: dbError.message });
+    throw new Error('Failed to save payment intent');
+  }
 
   const payload = {
-    tx_ref,
+    tx_ref: reference_id, // Flutterwave expects tx_ref, but our DB uses reference_id
     amount: depositAmount,
     currency: 'NGN',
-    redirect_url: `${config.FRONTEND_URL}/payment-success?tx_ref=${tx_ref}`,
+    redirect_url: `${env.FRONTEND_URL}/payment-success?tx_ref=${reference_id}`,
     payment_options: 'card,banktransfer,ussd',
-    customer: {
-      email,
-      name: fullName,
-    },
+    customer: { email, name: fullName },
     meta: { fullName, service },
     customizations: {
       title: 'Stanley Owarieta - Services',
       description: `Payment for ${service}`,
-      logo: `${config.paymentLogo}`,
+      logo: env.PaymentLogo,
     },
   };
 
@@ -77,16 +83,13 @@ export const initiatePayment = async (data: {
       payload,
       {
         headers: {
-          Authorization: `Bearer ${config.secretKey}`,
+          Authorization: `Bearer ${env.FLUTTERWAVE_SECRET_KEY}`,
           'Content-Type': 'application/json',
         },
       }
     );
 
-    return {
-      payment_link: response.data.data.link,
-      tx_ref,
-    };
+    return { payment_link: response.data.data.link, tx_ref: reference_id };
   } catch (error: any) {
     logger.error('Flutterwave payment initiation failed', {
       message: error.message,
@@ -96,54 +99,38 @@ export const initiatePayment = async (data: {
   }
 };
 
+
 /**
- * Handle Flutterwave webhook event
- * This MUST be idempotent and race-condition safe
+ * Handle Flutterwave webhook event — idempotent via emailSent guard
  */
-export const handleWebhookEvent = async (payload: any) => {
+export const handleWebhookEvent = async (payload: any, env: Bindings) => {
   if (payload?.event !== 'charge.completed') return;
 
   const tx_ref = payload?.data?.tx_ref;
   if (!tx_ref) return;
 
   const flutterwaveStatus = payload.data.status;
-  const status = ['successful', 'completed'].includes(flutterwaveStatus)
-    ? 'successful'
-    : 'failed';
+  const status = ['successful', 'completed'].includes(flutterwaveStatus) ? 'successful' : 'failed';
+  const meetingLink = `${env.MEETING_LINK || 'https://calendly.com/stanleyowarieta/meeting'}?tx_ref=${tx_ref}`;
 
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
 
-  const updateFields: any = {
-    status,
-    flutterwaveData: payload.data,
-    updatedAt: new Date(),
-    meetingLink: `${config.meetingLink}?tx_ref=${tx_ref}`,
-  };
+  // Idempotency: only update if email_sent is false
+  const { data: payment, error: updateError } = await supabase
+    .from('payments')
+    .update({
+      status,
+      flutterwave_data: payload.data,
+      meeting_link: meetingLink,
+      ...(status === 'successful' ? { email_sent: true } : {}),
+      updated_at: new Date().toISOString(),
+    })
+    .eq('tx_ref', tx_ref)
+    .eq('email_sent', false)
+    .select()
+    .single();
 
-
-  if (status === 'successful') {
-    updateFields.emailSent = true;
-  }
-
- 
-  const payment = await Payment.findOneAndUpdate(
-    {
-      tx_ref,
-      emailSent: { $ne: true }, 
-    },
-    {
-      $set: updateFields,
-      $setOnInsert: {
-        createdAt: new Date(),
-        
-      },
-    },
-    {
-      new: true,
-      upsert: false,
-    }
-  );
-
-  if (!payment) {
+  if (updateError || !payment) {
     logger.info('Webhook ignored — payment not found or email already sent', { tx_ref });
     return;
   }
@@ -152,30 +139,26 @@ export const handleWebhookEvent = async (payload: any) => {
     logger.info('Payment successful — sending thank you email', { tx_ref });
 
     try {
-      if (!payment.email) {
-        console.warn('No email provided for payment ID:', payment._id);
-        return;
-      }
+      const resend = createResendClient(env.RESEND_API_KEY);
 
       await resend.emails.send({
-        from: `Stanley Owarieta <${config.SenderEmail}>`,
+        from: `Stanley Owarieta <${env.SenderEmail}>`,
         to: payment.email.trim(),
         subject: "Deposit Received — Let's Schedule Your Project!",
         react: ImmediateThankYou({
-          fullName: payment.fullName,
+          fullName: payment.full_name,
           service: payment.service,
-          meetingLink: payment.meetingLink!,
-          depositAmount: payment.depositAmount || payment.amount,
-          fullAmount: payment.fullAmount,
-          balanceDue: payment.balanceDue,
+          meetingLink: payment.meeting_link,
+          depositAmount: payment.deposit_amount || payment.amount,
+          fullAmount: payment.full_amount,
+          balanceDue: payment.balance_due,
           message: payment.message || '',
         }),
       });
 
       logger.info('Thank you email sent successfully', { tx_ref });
     } catch (error: any) {
-      logger.error('Failed to send thank you email', { tx_ref, error });
-      
+      logger.error('Failed to send thank you email', { tx_ref, error: error.message });
     }
   }
 };

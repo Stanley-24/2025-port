@@ -1,22 +1,22 @@
-import { Document } from 'mongoose';
-
-export interface IPayment extends Document {
+export interface IPayment {
+  id?: string;
   tx_ref: string;
   email: string;
   fullName: string;
   service: string;
   amount: number;
-  depositAmount: number
-  fullAmount: number
-  balanceDue: number
+  depositAmount: number;
+  fullAmount: number;
+  balanceDue: number;
   currency: string;
   status: 'pending' | 'successful' | 'failed';
-  flutterwaveData?: any;
+  flutterwave_data?: any;
   meetingLink?: string;
-  message: string,
+  message: string;
   followedUp: boolean;
-  emailSent:boolean
-  createdAt: Date;
-  updatedAt: Date;
+  emailSent: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
+
 
