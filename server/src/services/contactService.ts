@@ -1,11 +1,11 @@
 // src/services/contactService.ts
 import { z } from 'zod';
-import { createClient } from '@supabase/supabase-js';
 import { sendContactNotification, sendConfirmationEmail } from './emailService';
 import { contactFormSchema } from '../lib/validation';
 import logger from '../lib/loggers';
 import { ValidationError } from '../lib/errors';
 import type { Bindings } from '../configs/bindings';
+import { getSupabaseClient } from '../lib/supabase';
 
 export class ContactService {
   static async processContactForm(data: unknown, env: Bindings) {
@@ -32,7 +32,7 @@ export class ContactService {
     const { fullName, email, subject, message } = validation.data;
 
     // 2. Save to Supabase
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+    const supabase = getSupabaseClient(env);
 
     const { data: newMessage, error: dbError } = await supabase
       .from('contact_messages')

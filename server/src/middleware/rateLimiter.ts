@@ -1,7 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Context, Next } from 'hono';
 import type { Bindings } from '../configs/bindings';
 import logger from '../lib/loggers';
+import { getSupabaseClient } from '../lib/supabase';
 
 const IP_LIMIT = 10;
 const IP_WINDOW_SECONDS = 60 * 15;   // 15 minutes
@@ -9,10 +10,10 @@ const EMAIL_LIMIT = 5;
 const EMAIL_WINDOW_SECONDS = 60 * 60 * 24; // 24 hours
 
 type HonoCtx = Context<{ Bindings: Bindings }>;
+type ContactPayload = { email?: string; ping?: boolean };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function checkLimit(
-  supabase: ReturnType<typeof createClient<any, any, any>>,
+  supabase: SupabaseClient,
   key: string,
   limit: number,
   windowSeconds: number
@@ -63,16 +64,40 @@ async function checkLimit(
 
 export const contactRateLimiter = async (c: HonoCtx, next: Next) => {
   const ip = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown-ip';
-  const rawEmail = (await c.req.json().catch(() => ({}))).email;
+  const body = (await c.req.json().catch(() => ({}))) as ContactPayload;
+
+  if (body.ping === true) {
+    const supabase = getSupabaseClient(c.env);
+
+    // Keep response fast while warming the DB path in the background.
+    c.executionCtx?.waitUntil(
+      supabase
+        .from('rate_limit_log')
+        .select('id', { count: 'exact', head: true })
+        .limit(1)
+        .then(() => undefined)
+        .catch((error) => {
+          logger.warn('Keep-alive DB warmup failed', { error: error.message });
+        })
+    );
+
+    return c.json({ success: true, message: 'Keep-alive acknowledged.' }, 200);
+  }
+
+  const rawEmail = body.email;
 
   if (!rawEmail || typeof rawEmail !== 'string') {
     return c.json({ success: false, message: 'Email is required.' }, 400);
   }
 
   const email = rawEmail.trim().toLowerCase();
-  const supabase = createClient(c.env.SUPABASE_URL, c.env.SUPABASE_SERVICE_ROLE_KEY);
+  const supabase = getSupabaseClient(c.env);
 
-  const ipResult = await checkLimit(supabase, `ip:${ip}`, IP_LIMIT, IP_WINDOW_SECONDS);
+  const [ipResult, emailResult] = await Promise.all([
+    checkLimit(supabase, `ip:${ip}`, IP_LIMIT, IP_WINDOW_SECONDS),
+    checkLimit(supabase, `email:${email}`, EMAIL_LIMIT, EMAIL_WINDOW_SECONDS),
+  ]);
+
   if (!ipResult.allowed) {
     logger.warn('IP rate limit exceeded', { ip });
     return c.json(
@@ -81,7 +106,6 @@ export const contactRateLimiter = async (c: HonoCtx, next: Next) => {
     );
   }
 
-  const emailResult = await checkLimit(supabase, `email:${email}`, EMAIL_LIMIT, EMAIL_WINDOW_SECONDS);
   if (!emailResult.allowed) {
     logger.warn('Email rate limit exceeded', { email });
     return c.json(

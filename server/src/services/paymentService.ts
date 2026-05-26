@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
 import logger from '../lib/loggers';
 import { createResendClient } from '../configs/resend';
 import { ImmediateThankYou } from '../emails/templates/ImmediateThankYou';
 import type { Bindings } from '../configs/bindings';
 import type { IPayment } from '../types/payment';
+import { getSupabaseClient } from '../lib/supabase';
 
 /**
  * Initiate Flutterwave payment (deposit)
@@ -39,7 +39,7 @@ export const initiatePayment = async (
   const reference_id = `STAN-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;
 
   // Save payment intent to Supabase
-  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+  const supabase = getSupabaseClient(env);
 
   const { error: dbError } = await supabase.from('payments').insert({
     reference_id,
@@ -113,7 +113,7 @@ export const handleWebhookEvent = async (payload: any, env: Bindings) => {
   const status = ['successful', 'completed'].includes(flutterwaveStatus) ? 'successful' : 'failed';
   const meetingLink = `${env.MEETING_LINK || 'https://calendly.com/stanleyowarieta/meeting'}?tx_ref=${tx_ref}`;
 
-  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+  const supabase = getSupabaseClient(env);
 
   // Idempotency: only update if email_sent is false
   const { data: payment, error: updateError } = await supabase

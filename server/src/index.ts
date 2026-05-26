@@ -4,6 +4,7 @@ import type { Bindings } from './configs/bindings';
 import contactRoutes from './routes/contactRoute';
 import paymentRoutes from './routes/paymentRoutes';
 import flutterwaveWebhookRoutes from './routes/flutterwaveWebhook';
+import { logPoolerRecommendation } from './lib/supabase';
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -16,6 +17,7 @@ const trustedOrigins = [
 ];
 
 const pagesSubdomainPattern = /^https:\/\/[a-z0-9-]+\.stanley-portfolio\.pages\.dev$/i;
+const globalForPoolCheck = globalThis as typeof globalThis & { __poolerChecked?: boolean };
 
 // Global CORS
 app.use(
@@ -43,8 +45,18 @@ app.use(
   })
 );
 
-// Health check
+app.use('*', async (c, next) => {
+  if (!globalForPoolCheck.__poolerChecked) {
+    logPoolerRecommendation(c.env);
+    globalForPoolCheck.__poolerChecked = true;
+  }
+
+  await next();
+});
+
+// Health checks
 app.get('/', (c) => c.text('Edge API is running 🚀'));
+app.get('/healthz', (c) => c.json({ ok: true, service: 'stanley-portfolio-server' }, 200));
 
 // Routes
 app.route('/api/v1', contactRoutes);

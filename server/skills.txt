@@ -127,3 +127,41 @@ These localhost URLs fail in production (cross-origin + unreachable server).
 **Vercel Speed Insights Note:** 404 error for `/_vercel/speed-insights/script.js` is separate analytics issue (possibly ad-blocker or CDN fallback) and does not affect form submission functionality.
 
 **Status:** ✅ RESOLVED
+
+---
+
+# Serverless Database Keep-Awake and Connection Strategy (May 26, 2026)
+
+## 1. Daily Supabase Keep-Awake Automation
+A new GitHub Actions workflow has been added at `.github/workflows/supabase-keep-alive.yml`.
+
+- Trigger: daily cron (`0 5 * * *`) + manual `workflow_dispatch`
+- Action: sends a lightweight POST ping to the production Worker contact endpoint with `{"ping":true}`
+- Worker behavior: returns immediately and performs a minimal background Supabase read (`rate_limit_log`) to keep DB access path warm
+
+## 2. Database Routing and Pooling Audit
+Current backend persistence path is via `@supabase/supabase-js` (HTTP/PostgREST), not a direct `pg`/Prisma TCP pool.
+
+- No direct `DATABASE_URL`-driven Postgres pool is currently initialized in `server/src`
+- No existing `5432` direct-port DSN found in active worker runtime code paths
+- Added optional `SUPABASE_DB_URL` binding support and runtime warning: if a future direct DSN uses `:5432`, logs advise moving to Supabase transaction pooler `:6543` for serverless safety
+
+## 3. Edge Runtime Performance Optimizations Applied
+- Introduced shared Supabase client factory in `server/src/lib/supabase.ts`
+- Reuses client per isolate where possible to reduce repeated client setup overhead
+- Uses serverless-safe auth options (`persistSession: false`, `autoRefreshToken: false`)
+- Keeps test environment deterministic by bypassing singleton cache during Jest runs
+
+## 4. Contact Route Fast-Path and Concurrency
+In `server/src/middleware/rateLimiter.ts`:
+
+- Added keep-alive ping fast-path (`ping: true`) with immediate response
+- Background DB warmup runs via `executionCtx.waitUntil(...)`
+- IP and email limit checks now execute concurrently with `Promise.all(...)` to reduce total latency
+- Existing fail-open behavior on DB errors is preserved to avoid false blocking of legitimate users
+
+## 5. Health Endpoint Behavior
+In `server/src/index.ts`:
+
+- Added lightweight `GET /healthz` JSON status endpoint
+- Added one-time per-isolate pooler recommendation check for optional direct Postgres DSN usage
