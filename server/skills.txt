@@ -165,3 +165,18 @@ In `server/src/index.ts`:
 
 - Added lightweight `GET /healthz` JSON status endpoint
 - Added one-time per-isolate pooler recommendation check for optional direct Postgres DSN usage
+
+---
+
+# Payment Resilience Hardening (May 26, 2026)
+
+## Issue
+Payment UX could appear stuck on "Processing..." when email dispatch via Resend fails (e.g. invalid API key, unverified sender/domain, or upstream subrequest failure).
+
+## Change Applied
+- Hardened payment email dispatch path in `server/src/services/paymentService.ts` by ensuring the Resend send block is fully contained in a non-blocking `try/catch`.
+- On Resend failure, error details are logged (`logger.error` + `console.error`) and execution continues without throwing.
+
+## Outcome
+- Payment initialization and Flutterwave link generation are decoupled from email notification reliability.
+- Users can still receive checkout links even if Resend is temporarily misconfigured or unavailable.

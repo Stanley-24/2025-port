@@ -158,7 +158,15 @@ export const handleWebhookEvent = async (payload: any, env: Bindings) => {
 
       logger.info('Thank you email sent successfully', { tx_ref });
     } catch (error: any) {
-      logger.error('Failed to send thank you email', { tx_ref, error: error.message });
+      // Email delivery must never block payment flow completion.
+      logger.error('Failed to send thank you email (continuing without blocking payment flow)', {
+        tx_ref,
+        error: error?.message ?? 'Unknown Resend error',
+      });
+      console.error('Resend dispatch failed during payment webhook processing', {
+        tx_ref,
+        error,
+      });
     }
   }
 };
