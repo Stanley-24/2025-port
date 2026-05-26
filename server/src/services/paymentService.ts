@@ -1,6 +1,7 @@
 import axios from 'axios';
 import logger from '../lib/loggers';
 import { createResendClient } from '../configs/resend';
+import { buildFromAddress } from './emailService';
 import { ImmediateThankYou } from '../emails/templates/ImmediateThankYou';
 import type { Bindings } from '../configs/bindings';
 import type { IPayment } from '../types/payment';
@@ -142,7 +143,7 @@ export const handleWebhookEvent = async (payload: any, env: Bindings) => {
       const resend = createResendClient(env.RESEND_API_KEY);
 
       await resend.emails.send({
-        from: `Stanley Owarieta <${env.SenderEmail}>`,
+        from: buildFromAddress('Stanley Owarieta', env),
         to: payment.email.trim(),
         subject: "Deposit Received — Let's Schedule Your Project!",
         react: ImmediateThankYou({

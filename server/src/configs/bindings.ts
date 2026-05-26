@@ -6,6 +6,7 @@ export type Bindings = {
   RESEND_API_KEY: string;
   AdminEmail: string;
   SenderEmail: string;
+  EMAIL_DOMAIN?: string;
   FRONTEND_URL: string;
   FLUTTERWAVE_PUBLIC_KEY: string;
   FLUTTERWAVE_SECRET_KEY: string;
