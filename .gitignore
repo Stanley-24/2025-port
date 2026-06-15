@@ -26,6 +26,7 @@ dist-ssr
 node_modules/
 .env
 .dev.vars
+server/.wrangler/tmp/
 
 
 # Jest coverage
