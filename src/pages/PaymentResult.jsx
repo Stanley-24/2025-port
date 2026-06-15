@@ -1,14 +1,59 @@
 // src/pages/PaymentResult.jsx
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const PaymentResult = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const status = query.get('status');
+  const statusFromQuery = query.get('status');
   const tx_ref = query.get('tx_ref');
+  const [resolvedStatus, setResolvedStatus] = useState(statusFromQuery);
+  const [isSyncingStatus, setIsSyncingStatus] = useState(Boolean(tx_ref));
 
-  const isSuccess = status === 'successful' || status === 'completed';
-  const isCancelled = status === 'cancelled';
+  const paymentStatusApi = useMemo(() => {
+    const explicitStatusApi = import.meta.env.VITE_payment_status_api;
+    if (explicitStatusApi) {
+      return explicitStatusApi;
+    }
+
+    const paymentApi = import.meta.env.VITE_payment_api;
+    if (!paymentApi) {
+      return null;
+    }
+
+    return paymentApi.replace(/\/initiate\/?$/, '/status');
+  }, []);
+
+  useEffect(() => {
+    const syncStatus = async () => {
+      if (!tx_ref || !paymentStatusApi) {
+        setIsSyncingStatus(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `${paymentStatusApi}?tx_ref=${encodeURIComponent(tx_ref)}`,
+          { method: 'GET' }
+        );
+        const data = await response.json();
+
+        if (response.ok && data?.success && data?.status) {
+          setResolvedStatus(String(data.status).toLowerCase());
+          return;
+        }
+      } catch (error) {
+        // Keep UX resilient when status sync fails; fallback to query status.
+      } finally {
+        setIsSyncingStatus(false);
+      }
+    };
+
+    syncStatus();
+  }, [paymentStatusApi, tx_ref]);
+
+  const isSuccess = resolvedStatus === 'successful' || resolvedStatus === 'completed';
+  const isCancelled = resolvedStatus === 'cancelled';
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
@@ -39,6 +84,11 @@ const PaymentResult = () => {
               <p className="text-lg text-[#d1d5db] text-center mb-12">
                 The remaining 30% will be invoiced before final delivery.
               </p>
+              {isSyncingStatus && (
+                <p className="text-sm text-[#d1d5db] text-center mb-6">
+                  Confirming payment status...
+                </p>
+              )}
             </>
           ) : isCancelled ? (
             <>
