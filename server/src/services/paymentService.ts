@@ -269,7 +269,6 @@ export const reconcilePaymentStatusByReference = async (txRef: string, env: Bind
       }
     );
 
-<<<<<<< HEAD
     const verifiedData = verifyResponse?.data?.data;
     if (verifyResponse?.data?.status === 'success' && verifiedData?.tx_ref === normalizedTxRef) {
       await handleWebhookEvent(
