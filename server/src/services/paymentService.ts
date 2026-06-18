@@ -90,7 +90,7 @@ export const initiatePayment = async (
     tx_ref: reference_id, // Flutterwave expects tx_ref, but our DB uses reference_id
     amount: depositAmount,
     currency: 'NGN',
-    redirect_url: `${env.FRONTEND_URL}/payment-success?tx_ref=${reference_id}`,
+    redirect_url: `${env.FRONTEND_URL.trim().replace(/\/+$/, '')}/payment-success?tx_ref=${reference_id}`,
     payment_options: 'card,banktransfer,ussd',
     customer: { email: normalizedEmail, name: normalizedFullName },
     meta: { fullName: normalizedFullName, service },

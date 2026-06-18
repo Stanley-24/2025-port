@@ -19,10 +19,10 @@ const PaymentSection = () => {
                     onClick={() =>
                         window.open("https://cal.com/stanley-24/discovery-call", "_blank", "noopener,noreferrer")
                     }
-                    aria-label="Button to book a discovery call"
-                    aria-description="button to open cal.com and book a discovery call"
+                    aria-label="Button to book a free 30-minute discovery call"
+                    aria-description="button to open cal.com and book a free 30-minute discovery call"
                 >
-                    Start Your Project Today
+                    Book a Free 30-Min Discovery Call
                 </Button>
             </div>
         </section>

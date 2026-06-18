@@ -46,15 +46,20 @@ const ServiceList = () => {
     <section id="services" className="container py-8">
       <SectionIntro 
         heading="My Services"
-        subtitle="What I can do for you with your business."
+        subtitle="Real solutions for real Nigerian business problems — built fast, built right."
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {services.map((service, index) => {
           const payable = isPayableCta(service.cta);
 
           return (
-            <Card key={index} className="bg-dark-bg border-0 border-purple">
+            <Card key={index} className="bg-dark-bg border-0 border-purple flex flex-col">
               <CardHeader>
+                {service.tag && (
+                  <span className="text-xs font-bold uppercase tracking-widest text-white bg-purple rounded-full px-3 py-1 self-start mb-2 w-fit">
+                    {service.tag}
+                  </span>
+                )}
                 <CardTitle className="text-goldmaize">{service.title}</CardTitle>
               </CardHeader>
               <CardContent className="text-lite-gray">
