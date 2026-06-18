@@ -5,11 +5,11 @@ compatibility_flags = [ "nodejs_compat" ]
 
 [vars]
 # Public, non-sensitive configuration
-FRONTEND_URL = "https://c560abfb.stanley-portfolio.pages.dev"
+FRONTEND_URL = "https:stanley-portfolio.pages.dev"
 SUPABASE_URL = "https://kcxeyusgtgblaihsasbd.supabase.co"
 AdminEmail = "owarieta24@gmail.com"
-SenderEmail = "no-reply@stanleyowarieta.com"
-PaymentLogo = "https://c560abfb.stanley-portfolio.pages.dev/stan-pic.webp"
+SenderEmail = "onboarding@resend.dev"
+PaymentLogo = "https://stanley-portfolio.pages.dev/stan-pic.webp"
 
 # Encrypted Secrets (stored in Cloudflare Workers Secret Manager)
 # Add via: npx wrangler secret put <SECRET_NAME>
