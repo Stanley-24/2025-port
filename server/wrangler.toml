@@ -23,4 +23,4 @@ PaymentLogo = "https://stanley-portfolio.pages.dev/stan-pic.webp"
 # - FLUTTERWAVE_ENCRYPTION_KEY (payment encryption key)
 # - FLUTTERWAVE_WEBHOOK_SECRET (webhook authentication)
 # - REDIS_URL (Redis connection string with auth)
-# - MEETING_LINK (if sensitive)
+# - MEETING_LINK (if sensitive. )
